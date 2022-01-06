@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+	"webapp/services"
 )
 
 func GetEmployee(response http.ResponseWriter, request *http.Request) {
@@ -15,7 +16,7 @@ func GetEmployee(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	emp, err := service.GetEmployee(empId)
+	emp, err := services.GetEmployee(empId)
 	if err != nil {
 		response.WriteHeader(http.StatusNotFound)
 		response.Write([]byte(err.Error()))
