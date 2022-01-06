@@ -6,12 +6,13 @@ import (
 	"webapp/model"
 )
 
-var(
+var (
 	employees = map[int64]*model.Employee{
-		100 : {EmpId : 101, EmpName : "deepak", EmpEmail : "deepak@gmail.com"}
+		100: {EmpId: 101, EmpName: "deepak", EmpEmail: "deepak@gmail.com"},
 	}
 )
-func GetEmployee(empId int64)(*model.Employee, err) {
+
+func GetEmployee(empId int64) (*model.Employee, error) {
 	if employee := employees[empId]; employee != nil {
 		return employee, nil
 	}
