@@ -2,14 +2,11 @@ package services
 
 import (
 	"webapp/dao"
+	"webapp/errors"
 	"webapp/model"
 )
 
-func GetEmployee(empId int64) (*model.Employee, error) {
+func GetEmployee(empId int64) (*model.Employee, *errors.AppError) {
 
-	employee, err := dao.GetEmployee(empId)
-	if err != nil {
-		return nil, err
-	}
-	return employee, nil
+	return dao.GetEmployee(empId)
 }

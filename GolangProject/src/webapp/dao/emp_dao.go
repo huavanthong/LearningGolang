@@ -1,8 +1,9 @@
 package dao
 
 import (
-	"errors"
 	"fmt"
+	"net/http"
+	"webapp/errors"
 	"webapp/model"
 )
 
@@ -12,9 +13,14 @@ var (
 	}
 )
 
-func GetEmployee(empId int64) (*model.Employee, error) {
+func GetEmployee(empId int64) (*model.Employee, *errors.AppError) {
 	if employee := employees[empId]; employee != nil {
 		return employee, nil
 	}
-	return nil, errors.New(fmt.Sprintf("Employee %v was not found.", empId))
+
+	return nil, &errors.AppError{
+		Message:    fmt.Sprintf("Employee %v was not found", empId),
+		StatusCode: http.StatusNotFound,
+		Status:     "not_found",
+	}
 }
