@@ -33,9 +33,12 @@ func newRouter() *mux.Router {
 	return r
 }
 
+/***********************************************************************************************************************/
+/****************************************** Bootstrap Application ******************************************************/
+/***********************************************************************************************************************/
 func BootApplication() {
 	// Run Bootstrapping Application
-	fmt.Printf("Bootstrapping the Application")
+	fmt.Printf("Bootstrapp Application is running")
 
 	http.HandleFunc("/employee", controllers.GetEmployee)
 
