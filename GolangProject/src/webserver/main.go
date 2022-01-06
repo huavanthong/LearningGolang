@@ -1,10 +1,18 @@
 package main
 
 import (
-	"fmt"
+	"net/http"
 )
 
 func main() {
 
-	fmt.Printf("Hello World\n")
+	http.HandleFunc("/hello", func(writer http.ResponseWriter, request *http.Request) {
+		writer.Write([]byte("Hello go!"))
+	})
+
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		panic(err)
+	}
+
 }
