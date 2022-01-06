@@ -36,18 +36,33 @@ $ go run main.go
 package webapp/bootstrap is not in GOROOT
 ```
 #### Solution
+##### Work Around:
 ```
 $ set GOPATH=${working_space}
 
 ```
+It will avoid error above, but it not is the root problem. 
+##### Robust solution:
+```
+$ set GO111MODULE=off
+$ go clean --modcache
+$ go run main.go
+
+```
+Refer:
+      https://www.socketloop.com/tutorials/golang-package-is-not-in-goroot-during-compilation
 ## 2. Issue related to set GOPATH variable env
 #### Problem 
 ```
 $ set GOPATH=${working_space}
 $ go init mod golangMVC.com/m/v1
-$ go run main.go
+$ go init tidy
+or
+$ go run main.go 
+
 => Error: 
 $GOPATH/go.mod exists but should not
 ```
 #### Solution
-
+Because you set a wrong GOPATH, so it will not work if you using other command. 
+Therefore, please use the default GOPATH.
