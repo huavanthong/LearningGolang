@@ -9,7 +9,7 @@ import (
 
 var birds []model.Bird
 
-func getBirdHandler(w http.ResponseWriter, r *http.Request) {
+func GetBirdHandler(w http.ResponseWriter, r *http.Request) {
 	//Convert the "birds" variable to json
 
 	birdListBytes, err := json.Marshal(birds)
@@ -25,7 +25,7 @@ func getBirdHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(birdListBytes)
 }
 
-func createBirdHandler(w http.ResponseWriter, r *http.Request) {
+func CreateBirdHandler(w http.ResponseWriter, r *http.Request) {
 	// Create a new instance of Bird
 	bird := model.Bird{}
 
