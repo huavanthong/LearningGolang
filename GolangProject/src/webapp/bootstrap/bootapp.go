@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"fmt"
 	"net/http"
+	"webapp/controllers"
 )
 
 func BootApplication() {
@@ -11,7 +12,7 @@ func BootApplication() {
 
 	http.HandleFunc("/employee", controllers.GetEmployee)
 
-	err := http.ListenAndServe(":8080", nil)  
+	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		panic(err.Error())
 	}
