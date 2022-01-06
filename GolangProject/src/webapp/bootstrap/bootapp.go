@@ -12,7 +12,7 @@ func BootApplication() {
 	http.HandleFunc("/employee", controllers.GetEmployee)
 
 	err := http.ListenAndServe(":8080", nil)  
-	if err != null {
+	if err != nil {
 		panic(err.Error())
 	}
 }
