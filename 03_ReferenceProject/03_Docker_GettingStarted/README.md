@@ -24,6 +24,18 @@ docker run -d -p 80:80 docker/getting-started
 
 Once it has started, you can open your browser to [http://localhost](http://localhost).
 
+
+## Issue knowledge  
+1. Port 8080 is already allocated
+```
+If you have already run application before. And you want yo run it again without remove port 8080.
+$ docker run -d -p 80:80 docker/getting-started
+..... forgot to remove this container 
+$ docker run -d -p 80:80 docker/getting-started
+=> error: 
+docker: Error response from daemon: driver failed programming external connectivity on endpoint docker-tutorial (cf3d117a14250f7bcd050454f08a9d65aeac10e247279a3adea5d3042b2a7732): Bind for 0.0.0.0:80 failed: port is already allocated.
+```
+
 ## Development
 
 This project has a `docker-compose.yml` file, which will start the mkdocs application on your
