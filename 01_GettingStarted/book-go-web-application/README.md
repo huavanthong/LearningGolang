@@ -8,8 +8,7 @@ Refer pdf: https://edu.anarcho-copy.org/Programming%20Languages/Go/Go%20Web%20Pr
 
 Go to: sub directory name: chapter *  
 Or  
-Refer:  https://www.manning.com/books/go-in-action
-
+Refer: https://www.manning.com/books/go-web-programming
 ### To get exercise for myself
 
 Go to: sub directory name: chapter*/example
