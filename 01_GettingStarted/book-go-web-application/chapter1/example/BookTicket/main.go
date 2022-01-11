@@ -47,6 +47,11 @@ func main() {
 			// Increment the WaitGroup counter.
 			wg.Add(1)
 			// Create a Goroutine để bắt đầu cho việc send result booking
+			// Problem:
+			// Têm một problem nữa nằm ở đâu, tại sao ở đây ta không thấy việc tạo Channel mà lại có thể sử
+			// dụng được go().
+			// Solution:
+			// https://www.meisternote.com/app/note/sZFeNENApMk2/book-ticket-application
 			go sendTicket(userTickets, firstName, lastName, email)
 
 			firstNames := getFirstNames()
