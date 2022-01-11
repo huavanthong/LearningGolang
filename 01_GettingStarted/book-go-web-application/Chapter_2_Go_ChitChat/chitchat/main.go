@@ -18,6 +18,7 @@ func main() {
 	// route handler functions defined in other files
 	//
 
+	// defined in route_main.go
 	// index
 	mux.HandleFunc("/", index)
 	// error

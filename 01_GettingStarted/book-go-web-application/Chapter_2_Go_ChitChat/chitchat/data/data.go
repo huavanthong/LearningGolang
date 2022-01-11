@@ -12,6 +12,11 @@ import (
 
 var Db *sql.DB
 
+// Cho mỗi source file, chúng ta có thể define init() function để set up bất cứ state gì được required.
+// => Actually, each file can have multiple init function. => Đọc kĩ phần này sau.
+// Và ta phải hiểu rằng, init được gọi sau khi tất cả variable declaration trong package được evaluated
+// their initializer.
+// And those are evaluated only after all the imported packages have been initialized.
 func init() {
 	var err error
 	Db, err = sql.Open("postgres", "dbname=chitchat sslmode=disable")
