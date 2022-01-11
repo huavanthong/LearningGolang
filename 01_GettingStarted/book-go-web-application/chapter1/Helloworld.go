@@ -18,7 +18,7 @@ func handler(w http.ResponseWriter, request *http.Request) {
 	// Lưu ý ở Request thì sẽ chứa tất cả các info cần thiết để handle request đó.
 	// Ta có thể sự interchangeablly trong URN, URL và URI
 	// Refer: https://www.meisternote.com/app/note/TaMdVSh8irub/1-7-uri
-	fmt.Fprintf(w, "Hello world", request.URL.Path[1:])
+	fmt.Fprintf(w, "Hello world, %s !!!", request.URL.Path[1:])
 }
 
 // Main function.
