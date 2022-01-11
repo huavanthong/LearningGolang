@@ -11,3 +11,10 @@ Some differences include:
 * There are test files in this code
 * All structs are fully fleshed out (in the book chapter, they are only implied)
 * Some of the functions are placed as methods for the struct types instead of being a part of the package
+
+
+# Set up project
+S1: Create go.mod to init module for our package.
+S2: create database name is chitchat 
+S3: use setup.sql script, and execute in query tool in PostgreSQL to genereate Database for our data model.
+S4: Remember to login account in PostgreSQL
