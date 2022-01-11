@@ -1,4 +1,13 @@
-code
-====
+# Here introduces to you about book: Go Web Application.  
 
-Source Code for Go In Action examples
+### To read this boook
+
+Refer pdf: https://edu.anarcho-copy.org/Programming%20Languages/Go/Go%20Web%20Programming.pdf
+
+### To get example source code for each chapter.
+
+Go to: sub directory name: chapter *
+
+### To get exercise for myself
+
+Go to: sub directory name: chapter*/example
