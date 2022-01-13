@@ -19,7 +19,7 @@ var Db *sql.DB
 // And those are evaluated only after all the imported packages have been initialized.
 func init() {
 	var err error
-	Db, err = sql.Open("postgres", "dbname=chitchat sslmode=disable")
+	Db, err = sql.Open("postgres", "user=postgres password=1234 dbname=chitchat sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
