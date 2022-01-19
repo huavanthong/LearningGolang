@@ -41,6 +41,15 @@ func (c Circle) Diameter() float64 {
 	return 2 * c.Radius
 }
 
+// Generic function to calculate the total area of multiple shapes of different types
+func CalculateTotalArea(shapes ...Shape) float64 {
+	totalArea := 0.0
+	for _, s := range shapes {
+		totalArea += s.Area()
+	}
+	return totalArea
+}
+
 func main() {
 
 	var circle Circle = Circle{4.0}
@@ -55,4 +64,6 @@ func main() {
 	fmt.Printf("Shape Type = %T, Shape Value = %v\n", s, s)
 	fmt.Printf("Area = %f, Perimeter = %f\n", s.Area(), s.Perimeter())
 
+	totalArea := CalculateTotalArea(Circle{2}, Rectangle{4, 5}, Circle{10})
+	fmt.Println("Total area = ", totalArea)
 }
