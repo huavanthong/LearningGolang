@@ -17,7 +17,10 @@ To verify that our image exists on our machine
 $ docker images
 ```
 
-To run image and pass in the porst we want to map to and the image we wish to run
+To run image and pass in the porst we want to map to and the image we wish to run.
+When you run this -p option, means that we're gonna bins a port on my machine to a port within the docker application.
+Therefore, this command below show you: port 8080 on your machine is gonna map to port 8081 inside.
+So if you hit localhost 8080 on brower, it's actually going to route that to port 8081 inside the specific container. 
 ```
 $ docker run -p 8080:8081 -it my-go-app
 ```
