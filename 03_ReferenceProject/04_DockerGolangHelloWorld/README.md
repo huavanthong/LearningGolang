@@ -28,7 +28,7 @@ Command line:
 $ curl http://localhost:8080/
 
 ```
-### Check image and container
+### Check image
 To verify that our image exists on our machine 
 ```
 $ docker images my-go-app
@@ -39,6 +39,7 @@ $ docker images
 $ docker images -a
 ```
 
+### Check container  
 To check all of containers in images.
 ```
 $docker container ls
@@ -58,7 +59,21 @@ e961a2ee38d0   my-go-app:latest                      "/app/main"              4 
 3b8e4fe7797c   docker101tutorial                     "/docker-entrypoint.…"   4 weeks ago      Exited (255) 4 weeks ago    0.0.0.0:80->80/tcp   docker-tutorial
 a5a6baaea1db   alpine/git                            "git clone https://g…"   4 weeks ago      Exited (0) 4 weeks ago                           repo
 ```
-
+### Check volumne
+To check all volumne in docker
+```
+$docker volume ls
+D:\Working\02_Learning\03_ReferenceProject\MasterGolang\03_ReferenceProject\07_Docker-compose-Go-Nodejs>docker volume ls
+DRIVER    VOLUME NAME
+local     5767f1bc77df3f031bc1c73d2885fe402e567963bf2112b4b5c695f31c9f3f65
+local     volume-single-dev-env-affectionate_hoover
+local     vsCodeServerVolume-single-dev-env-affectionate_hoover
+```
+To remove volumne on docker  
+```
+$docker volume rm volume_name volume_name
+```
+  
 ### Remove images
 To stop container on images
 ```
