@@ -1,13 +1,17 @@
 To get details contents, please refer to book go-web-application.  
 This tutorial will help you answer question below:
+# Request
 * [You are ready to understand about Requests and Response?](#Request-Response)
-* [What is format for request-header in Golang?](#Format request header)
-* [What is HTML form?](#HTML form)
+* [What is format for request-header in Golang?](#Format-request-header)
+* [What is HTML form?](#HTML-Form)
 * [The important things when we use enctype ? And how to insert to HTML form?](#Enctype)
 * [What is ParseForm?](#ParseForm)
 * [What is PostForm?](#PostForm)
 * [What is MultipartForm?](#MultipartForm)
 * [How to upload a file to brower, and handle on Golang](#Files)
+# Response
+* [What is ResponseWriter in Golang?](#ResponseWriter)
+* [How to write a example response to client](#Write)
 
 ## Request-Response
 Both requests and responses have basically the same structure:
@@ -25,7 +29,7 @@ User-Agent: Mozilla/5.0
 (empty line)
 ```
 
-## Format request header
+## Format-request-header
 A header is a map, with the key a string and the value a slice of strings.  
 Note: map is used as same as dictionary with key-value.  
 Get a example header from request.
@@ -71,7 +75,7 @@ Content-Length: 37
 Content-Type: text/plain; charset=utf-8
 first_name=sausheong&last_name=chang
 ```
-## HTMLform
+## HTML-Form
 HTML form often look like this:
 ```
 <form action="/process" method="post">
@@ -180,3 +184,25 @@ func process(w http.ResponseWriter, r *http.Request) {
    }
 }
 ```
+## ResponseWriter
+The ResponseWriter interface has three methods:
+■ Write
+■ WriteHeader
+■ Header
+
+## Write
+Write method takes in an array of bytes, and this gets written into the body of the HTTP response. 
+If the header doesn’t have a content type by the time Write is called,the first 512 bytes of the data are used to detect the content type. 
+```
+func writeExample(w http.ResponseWriter, r *http.Request) {
+    str := `
+      <html>
+         <head><title>Go Web Programming</title></head>
+         <body><h1>Hello World</h1></body>
+      </html>`
+    w.Write([]byte(str))
+}
+```
+## WriteHeader
+
+## Header
