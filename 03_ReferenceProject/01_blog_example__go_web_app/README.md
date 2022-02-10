@@ -5,7 +5,6 @@ This is the example repository for [this blog post](https://www.sohamkamani.com/
 * [Start server](#Start-server)
 * [Run](#Run)
 * [Test](#Test)
-* [RPC in the Go standard library](#RPC)
 
 ## Build
 To build this example:
