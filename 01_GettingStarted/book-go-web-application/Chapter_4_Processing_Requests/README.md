@@ -12,6 +12,13 @@ This tutorial will help you answer question below:
 # Response
 * [What is ResponseWriter in Golang?](#ResponseWriter)
 * [How to write a example response to client](#Write)
+# Cookies
+* [What is Cookie? How cookie was created? Life cycle for cookie?](#Cookie)
+* [Could understand about struct Cookie in Go?](#Struct-cookie)
+* [How to send a cookie to the brower?](#Send-cookie)
+* [How to get a cookie from brower?](#Get-cookie)
+* [Why do we need to use cookie? What is Flash message? Get a example using cookie for flash message?](#Flash-message)
+
 
 ## Request-Response
 Both requests and responses have basically the same structure:
@@ -240,3 +247,106 @@ Date: Tue, 13 Jan 2015 16:22:16 GMT
 Content-Length: 0
 Content-Type: text/plain; charset=utf-8
 ```
+
+## Cookie
+Please remember some feature below to understand about Cookie: 
+1. Cookie là một phần thông tin nhỏ được lưu tại client - brower.
+2. Nguồn gốc của cookie được tạo ra, là vì cookie được gửi từ server thông qua HTTP response message.
+3. Và mỗi lần client sends một HTTP request đến server, the cookies cũng sẽ được sent along with HTTP request.
+4. Cookies được thiết kế để khắc phục (overcome) tình trạng không trạng thái của HTTP.  
+More details: [here](https://www.meisternote.com/app/note/JStJbiZPebag/4-4-cookies)
+### Struct-cookie
+Please refer package cookie: [here](https://go.dev/src/net/http/cookie.go)  
+
+### Send-cookie
+We use setCookie() methods to send cookie from server to client.
+```
+func setCookie(w http.ResponseWriter, r *http.Request) {
+	c1 := http.Cookie{
+		Name:     "first_cookie",
+		Value:    "Go Web Programming",
+		HttpOnly: true,
+	}
+	c2 := http.Cookie{
+		Name:     "second_cookie",
+		Value:    "Manning Publications Co",
+		HttpOnly: true,
+	}
+	http.SetCookie(w, &c1)
+	http.SetCookie(w, &c2)
+}
+```
+Run serve.go and check result 
+```
+http://127.0.0.1:8080/set_cookie
+=> Select: Storage in Inspect page on brower.
+```
+### Get-cookie
+To get all names-value in cookie:
+```
+func getCookie(w http.ResponseWriter, r *http.Request) {
+   h := r.Header["Cookie"]
+   fmt.Fprintln(w, h)
+}
+```
+To get a specific name-value:
+```
+func getCookie(w http.ResponseWriter, r *http.Request) {
+   c1, err := r.Cookie("first_cookie")
+   if err != nil {
+      fmt.Fprintln(w, "Cannot get the first cookie")
+   }
+   cs := r.Cookies()
+   fmt.Fprintln(w, c1)
+   fmt.Fprintln(w, cs)
+}
+```
+To check result cookie:
+- Please run API set_cookie first. (If not, you only run get_cookie, we wil can't see data in cookie, 
+- Then run API get_cookie to receive data in cookie.
+```
+http://127.0.0.1:8080/get_cookie 
+Then: 
+http://127.0.0.1:8080/get_cookie 
+```
+### Flash-message
+These transient messages are commonly known as **flash messages**
+**More detail:** [here](https://www.meisternote.com/app/note/k4YdJh40r5E0/4-4-4-using-cookies-for-flash-messages)
+As you know the problem if you run API to get the cookie firstly, you can't find the cookie, and you want to show message to client “No message found.”. You have to do two thing:
+1. Create a cookie with the same name, but with MaxAge set to a negative number and an Expires value that’s in the past.
+2. Send the cookie to the browser with SetCookie.  
+To send message to client, and encode message to hide info.
+```
+func setMessage(w http.ResponseWriter, r *http.Request) {
+	msg := []byte("Hello World!")
+	c := http.Cookie{
+		Name:  "flash",
+		Value: base64.URLEncoding.EncodeToString(msg),
+	}
+	http.SetCookie(w, &c)
+}
+```
+Then, we receive messsage: 
+- is null, notifiy error
+- not null, decode message from client.
+```
+func showMessage(w http.ResponseWriter, r *http.Request) {
+	c, err := r.Cookie("flash")
+	if err != nil {
+		if err == http.ErrNoCookie {
+			fmt.Fprintln(w, "No message found")
+		}
+	} else {
+		rc := http.Cookie{
+			Name:    "flash",
+			MaxAge:  -1,
+			Expires: time.Unix(1, 0),
+		}
+		http.SetCookie(w, &rc)
+		val, _ := base64.URLEncoding.DecodeString(c.Value)
+		fmt.Fprintln(w, string(val))
+	}
+}
+```
+
+
