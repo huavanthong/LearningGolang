@@ -2,8 +2,8 @@ To get details contents, please refer to chapter 5 at book go-web-application.
 This tutorial will help you answer question below:
 # Templates and template engine
 * [The difference between templates and template engine?](#Template-and-Template-Engine)
-* [How to parse templates on Go?](# Parsing-templates)
-* [How we can transfer variable to html?](# Parsing-templates)
+* [How to parse templates on Go?](#Parsing-templates)
+* [How we can transfer variable to html?](#Parsing-templates)
 * [Could you use another way to parse template on Go? What is executing templates?](#Executing-templates)
 # Actions 
 * [What is actions in Golang? How we use it?](#Actions)
