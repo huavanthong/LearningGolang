@@ -186,9 +186,9 @@ func process(w http.ResponseWriter, r *http.Request) {
 ```
 ## ResponseWriter
 The ResponseWriter interface has three methods:  
-> ■ Write
-> ■ WriteHeader
-> ■ Header
+ ■ Write  
+ ■ WriteHeader  
+ ■ Header  
 
 ### Write
 Write method takes in an array of bytes, and this gets written into the body of the HTTP response. 
