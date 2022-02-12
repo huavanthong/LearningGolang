@@ -10,10 +10,20 @@ This tutorial will help you answer question below:
 * [How we can create logic "if-else" in Golang?](#Contional-actions)
 * [How we create for loop in Go?](#Iterator-actions)
 * [You know about actions, thinking it, could you set actions for it or not??](#Set-actions)
+* [Suppose we have many temlate.html, how we include all tempalate to one action?](#Include-actions)
+# Arguments, variables and pipelines
+
+# Functions
+
+# Context awareness
+
+# Nesting templates
+
+# Using the block action to define default templates
 
 
 
-## Template-and-Template-Engine
+# Template-and-Template-Engine
 
 ## Parsing-templates
 To get a template in your working directory, please prepare:
@@ -74,7 +84,27 @@ tmpl.html
     {{ end }}
   </body>
 ```
-More details: [here](
+More details: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/random_number)
+### Iterator-actions
+We will use iterator to display all days of week:  
+```
+serve.go
+
+func process(w http.ResponseWriter, r *http.Request) {
+	t, _ := template.ParseFiles("tmpl.html")
+	daysOfWeek := []string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}
+	t.Execute(w, daysOfWeek)
+}
+```
+At template, we use syntax: {{ range . }} --- {{ end}} to loop
+```
+    <ul>
+    {{ range . }}
+      <li>{{ . }}</li>
+    {{ end}}
+    </ul>
+```
+More details: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/iterator)
 ### Set-actions
 We can also set actions in html following:
 ```
@@ -98,3 +128,7 @@ The dot is hello
 Now the dot is set to world
 The dot is hello again
 ```
+More details: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/set_dot)
+### Include-actions
+
+
