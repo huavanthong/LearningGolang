@@ -26,7 +26,7 @@ This tutorial will help you answer question below:
 * [What is contex-aware in Golang?](#Context-awareness)
 * [What is XSS attacks?](#What-is-XSS-attacks)
 * [How does we depend against XSS attacks?](#Defending-against-XSS-attacks)
-* [What is unescaping HTML](#Unescaping-HTML)
+* [What is unescaping HTML?](#Unescaping-HTML)
 # Nesting templates
 
 # Using the block action to define default templates
@@ -325,7 +325,7 @@ Submit a comment, maybe XSS attacks
 Output will display white page.
   None
 ```
-**Case 1:**  If you stop protecting:
+**Case 2:**  If you stop protecting:
 ```
 Submit a comment, maybe XSS attacks
   <script>alert('Pwnd!');</script>
