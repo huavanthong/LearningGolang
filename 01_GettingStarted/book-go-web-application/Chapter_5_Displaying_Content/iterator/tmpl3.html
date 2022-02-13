@@ -7,8 +7,8 @@
   <body>
     <div>
       <ul>
-      {{ range . }}
-        <li>{{ . }}</li>
+      {{ range $key, $value := .  }}
+        <li>The key is {{ $key }} and the value is {{ $value }}</li>
       {{ end}}
       </ul>
     </div>
