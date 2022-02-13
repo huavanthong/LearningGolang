@@ -23,7 +23,10 @@ This tutorial will help you answer question below:
 * [What is work flow running Funcmap in Golang?](#Work-flow)
 * [How many application for using function in Golang](#App)
 # Context awareness
-
+* [What is contex-aware in Golang?](#Context-awareness)
+* [What is XSS attacks?](#What-is-XSS-attacks)
+* [How does we depend against XSS attacks?](#Defending-against-XSS-attacks)
+* [What is unescaping HTML](#Unescaping-HTML)
 # Nesting templates
 
 # Using the block action to define default templates
@@ -229,3 +232,33 @@ More details: [here]()
 ### Work-flow 
 Refer to book go-web-application, chapter 5.5
 ### App
+
+## Context-awareness
+One of the most interesting features of the Go template engine is that the content it displays can be changed according to its context. The content that's displayed changes depending on where you place it within the documents.
+This means:
+- The content is HTML, it will be HTML escaped.
+- If it is JavaScript, it will be JavaScript escaped.
+- Go template also recognize content that's part of a URL or is a CSS style.
+To create a content:
+```
+func process(w http.ResponseWriter, r *http.Request) {
+	t, _ := template.ParseFiles("tmpl.html")
+	content := `I asked: <i>"What's up?"</i>`
+	t.Execute(w, content)
+}
+```
+More details: [here]()
+### What-is-XSS-attacks
+A common XSS attacks is the persistent XSS vulnerability. This happens when data provided by an attacker is saved to the server and then displayed to other users as it is. 
+For a example:
+- a vulnerable forum site that allows its users to create posts or comments to be saved and read by other users.
+- An attacker can post a comment that includes malicious JavaScript code within the <script> tag. 
+- Because the forum displays the comment as is and whatever is within the <script> tag isn’t shown to the user
+- the malicious code is executed with the user’s permissions but without the user’s knowledge.
+The normal way to prevent this is to escape whatever is passed into the system before displaying or storing it.  
+But as with most exploits and bugs, the biggest culprit is the human factor.
+
+### Defending-against-XSS-attacks
+
+### Unescaping-HTML
+
