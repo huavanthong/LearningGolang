@@ -7,7 +7,9 @@ import (
 
 func process(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("tmpl.html")
+	// Create a string with message below
 	content := `I asked: <i>"What's up?"</i>`
+	// Pass variable to template
 	t.Execute(w, content)
 }
 

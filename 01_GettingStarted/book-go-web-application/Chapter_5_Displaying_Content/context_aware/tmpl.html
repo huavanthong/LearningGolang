@@ -4,9 +4,13 @@
     <title>Go Web Programming</title>
   </head>
   <body>
+    <!-- Get arguement following HTML content -->
     <div>{{ . }}</div>
+    <!-- Get arguement following URL -->
     <div><a href="/{{ . }}">Path</a></div>
+    <!-- Or get as POST method -->
     <div><a href="/?q={{ . }}">Query</a></div>
+    <!-- Content is button -->
     <div><a onclick="f('{{ . }}')">Onclick</a></div>
   </body>
 </html>

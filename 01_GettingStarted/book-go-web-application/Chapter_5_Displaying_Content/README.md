@@ -23,7 +23,10 @@ This tutorial will help you answer question below:
 * [What is work flow running Funcmap in Golang?](#Work-flow)
 * [How many application for using function in Golang](#App)
 # Context awareness
-
+* [What is contex-aware in Golang?](#Context-awareness)
+* [What is XSS attacks?](#What-is-XSS-attacks)
+* [How does we depend against XSS attacks?](#Defending-against-XSS-attacks)
+* [What is unescaping HTML](#Unescaping-HTML)
 # Nesting templates
 
 # Using the block action to define default templates
@@ -229,3 +232,104 @@ More details: [here]()
 ### Work-flow 
 Refer to book go-web-application, chapter 5.5
 ### App
+
+## Context-awareness
+One of the most interesting features of the Go template engine is that the content it displays can be changed according to its context. The content that's displayed changes depending on where you place it within the documents.
+This means:
+- The content is HTML, it will be HTML escaped.
+- If it is JavaScript, it will be JavaScript escaped.
+- Go template also recognize content that's part of a URL or is a CSS style.
+To create a content:
+```
+func process(w http.ResponseWriter, r *http.Request) {
+  t, _ := template.ParseFiles("tmpl.html")
+  content := `I asked: <i>"What's up?"</i>`
+  t.Execute(w, content)
+}
+```
+More details: [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter5-part5.6/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/context_aware)
+### What-is-XSS-attacks
+A common XSS attacks is the persistent XSS vulnerability. This happens when data provided by an attacker is saved to the server and then displayed to other users as it is. 
+For a example:
+- a vulnerable forum site that allows its users to create posts or comments to be saved and read by other users.
+- An attacker can post a comment that includes malicious JavaScript code within the <script> tag. 
+- Because the forum displays the comment as is and whatever is within the <script> tag isn’t shown to the user
+- the malicious code is executed with the user’s permissions but without the user’s knowledge.
+The normal way to prevent this is to escape whatever is passed into the system before displaying or storing it.  
+But as with most exploits and bugs, the biggest culprit is the human factor.
+
+### Defending-against-XSS-attacks
+Step 1: Now, we implement a page to submit comments from user.
+- And note that, we create a action to redirect process site.
+```
+    <form action="/process" method="post">
+      Comment: <input name="comment" type="text" size="50">
+     <hr/>
+     <button id="submit">Submit</button>
+    </form>
+```
+At server.go side, we will handle to depend XSS attacks.  
+Step 2: We implement a page to submit data. 
+- We will check data at this /form site.
+- If data is normal, we will redirect to /process site.
+```
+func form(w http.ResponseWriter, r *http.Request) {
+  t, _ := template.ParseFiles("form.html")
+  t.Execute(w, nil)
+}
+```
+Step 3: Implement a /process page to display data from redirect at /form
+- At here, we will get data from request by using FormValue() method.
+- If data is correct, pass to tmpl.html template 
+```
+func process(w http.ResponseWriter, r *http.Request) {
+  t, _ := template.ParseFiles("tmpl.html")
+  t.Execute(w, r.FormValue("comment"))
+}
+```
+More details: [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter5-part5.6/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/xss)
+#### How to run
+Open brower:
+```
+  http://localhost:8080/form
+```
+#### Test
+**Case 1:** User submit a normal comment
+```
+  Hello World
+Output:
+  Hello World
+  Hello World
+```
+**Case 2:** Submit a comment, maybe XSS attacks
+```
+  <script>alert('Pwnd!');</script>
+Output:
+  <script>alert('Pwnd!');</script>
+```
+As you can see, we can't send this message to /process.  
+Right now, we've ready to depend XSS attacks.
+
+### Unescaping-HTML
+Suppose if you really want this behavior, meaning you want the user to enter HTML or JavaScript code that’s executable when displayed.  
+Go provides a mechanism to “unescape” HTML.  
+To stop the brower from protecting you from XSS attacks:
+```
+  w.Header().Set("X-XSS-Protection", "0")
+```
+### Test
+**Case 1:**  If you don't stop protecting:
+```
+Submit a comment, maybe XSS attacks 
+  <script>alert('Pwnd!');</script>
+Output will display white page.
+  None
+```
+**Case 1:**  If you stop protecting:
+```
+Submit a comment, maybe XSS attacks
+  <script>alert('Pwnd!');</script>
+Output:
+  <script>alert('Pwnd!');</script>
+```
+Please try to do it at [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter5-part5.6/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/xss)
