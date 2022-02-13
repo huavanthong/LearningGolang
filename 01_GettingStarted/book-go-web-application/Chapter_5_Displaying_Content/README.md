@@ -19,7 +19,9 @@ This tutorial will help you answer question below:
 * [How we create variable and pass to template, what expereicen for you?](#Variables)
 * [What is pipeline in Golang, how we use it in templates, what is benefit to use it](#Pipelines)
 # Functions
-
+* [How to create a function map to template engine?](#Functions)
+* [What is work flow running Funcmap in Golang?](#Work-flow)
+* [How many application for using function in Golang](#App)
 # Context awareness
 
 # Nesting templates
@@ -205,3 +207,25 @@ To create pipeline on template
 ```
   {{ p1 | p2 | p3 }}
 ```
+## Functions
+To define custom functions, you need to:
+1. Create a FuncMap map, which has the name of the function as the key and the actual function as the value.
+2. Attach the FuncMap to the template.
+For a example, we create a formatDate function and mapping to template.  
+Create formatDate() function:
+```
+  func formatDate(t time.Time) string { ... }
+```
+Mapping to template
+```
+  funcMap := template.FuncMap{"fdate": formatDate}
+  t := template.New("tmpl.html").Funcs(funcMap)
+```
+On template, to regconize that function, we to use 
+```
+  <div>The date/time is {{ . | fdate }}</div>
+```
+More details: [here]()
+### Work-flow 
+Refer to book go-web-application, chapter 5.5
+### App
