@@ -1,9 +1,9 @@
 This repository will help you how to implement a Golang project in the working company. 
 
 ## Table of contents
-* [01_GettingStarted](#general-info)
-* [02_Documents](#technologies)
-* [03_ReferenceProject](#setup)
+* [01_GettingStarted](#01_GettingStarted)
+* [02_Documents](#02_Documents)
+* [03_ReferenceProject](#03_ReferenceProject)
 * [GolangProject](#project)
 
 ## 01_GettingStarted
@@ -17,7 +17,7 @@ Documents recommends to learn about knowledge or issues knowledge manage.
 Summary all projects reference from other resource on website.
 
 
-## GolangProject
+## project
 Begin to deploy the actual golang project. This project will implement Golang following MVC model. 
 We will find the interesting feature, and integrate into this project.
 
