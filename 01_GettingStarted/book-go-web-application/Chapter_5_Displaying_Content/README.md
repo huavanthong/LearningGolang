@@ -4,15 +4,19 @@ This tutorial will help you answer question below:
 * [The difference between templates and template engine?](#Template-and-Template-Engine)
 * [How to parse templates on Go?](#Parsing-templates)
 * [How we can transfer variable to html?](#Parsing-templates)
+* [Suppose template have an error, how we know and handle it?](#Parsing-templates)
+* [What is panic error in Golang?](#Parsing-templates)
 * [Could you use another way to parse template on Go? What is executing templates?](#Executing-templates)
 # Actions 
 * [What is actions in Golang? How we use it?](#Actions)
 * [How we can create logic "if-else" in Golang?](#Contional-actions)
 * [How we create for loop in Go?](#Iterator-actions)
+* [How we create for loop with two dimensional array, slice or loop in maps object?](#Iterator-actions)
 * [You know about actions, thinking it, could you set actions for it or not??](#Set-actions)
-* [Suppose we have many temlate.html, how we include all tempalate to one action?](#Include-actions)
+* [Suppose we have many file html, how can we include all tempalate to one action?](#Include-actions)
 # Arguments, variables and pipelines
-
+* [What is arguement in a template Golang?](#Arguments)
+*
 # Functions
 
 # Context awareness
@@ -28,24 +32,41 @@ This tutorial will help you answer question below:
 ## Parsing-templates
 To get a template in your working directory, please prepare:
 - tmpl.html
+- tmpl2.html
 - server.go
+To parse template files, and create a parsed template struct that you can execute it later.
 ```
-func process(w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("tmpl.html")
-	t.Execute(w, "hello") 
-}
-```
-How we transfer string "hello" to our template. We use dot "." sign to implement on template as:
-```
+t, _ := template.ParseFiles("tmpl.html")
 ```
 
+To parse multiple template files.
+```
+t, _ := template.ParseFiles("tmpl.html", "tmpl2.html")
+```
+
+Golang provides another mechanism to handle errors returned by parsing templates
+- The Must function wraps around a function that returns a pointer to a template and an error, and panics if the error is not a nil.
+- In Go, panicking refers to a situation where the normal flow of execution is stopped, and if it’s within a function, the function returns to its caller.
+- The process continues up the stack until it reaches the main program, which then crashes.
+```
+t := template.Must(template.ParseFiles("tmpl.html"))
+```
 
 ## Executing-templates
-We can use ExecuteTemplate() method to combine the above actions:
+After we have a parse template struct, we can execute it
+```
+t.Execute(w) 
 ```
 
+To transfer a variable to Execute() method
+```
+t.Execute(w, "Hello World") 
 ```
 
+We can use ExecuteTemplate() to combine parse method.
+```
+t.ExecuteTemplate(w, "tmpl.html", "Hello World!")
+```
 ## Actions
 As mentioned earlier, actions are embedded commands in Go templates, placed between a set of double braces, {{ and }}. Go has an extensive set of actions, which are
 quite powerful and flexible. In this section, we’ll discuss some of the important ones:  
@@ -130,5 +151,27 @@ The dot is hello again
 ```
 More details: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/set_dot)
 ### Include-actions
-
-
+To parse multiple template.
+```
+func process(w http.ResponseWriter, r *http.Request) {
+	t, _ := template.ParseFiles("t1.html", "t2.html")
+	t.Execute(w, "Hello World!")
+}
+```
+## Arguments-Variables-Pipelines
+Because this hasn't example code, we have to do some example at: [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter5/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/arg-var-pipe)
+### Arguments
+In template, we have a argument as arg
+> {{ if arg }}
+> some content
+> {{ end }}
+### Variables
+In template, we also create a variable
+> {{ range $key, $value := . }}
+>   The key is {{ $key }} and the value is {{ $value }}
+> {{ end }}
+### Pipelines
+To create pipeline on template
+```
+  {{ p1 | p2 | p3 }}
+```
