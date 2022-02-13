@@ -16,7 +16,8 @@ This tutorial will help you answer question below:
 * [Suppose we have many file html, how can we include all tempalate to one action?](#Include-actions)
 # Arguments, variables and pipelines
 * [What is arguement in a template Golang?](#Arguments)
-*
+* [How we create variable and pass to template, what expereicen for you?](#Variables)
+* [What is pipeline in Golang, how we use it in templates, what is benefit to use it](#Pipelines)
 # Functions
 
 # Context awareness
@@ -150,6 +151,7 @@ Now the dot is set to world
 The dot is hello again
 ```
 More details: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/set_dot)
+
 ### Include-actions
 To parse multiple template.
 ```
@@ -157,19 +159,47 @@ func process(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("t1.html", "t2.html")
 	t.Execute(w, "Hello World!")
 }
+
+```
+On template, from template 1, we pass template 2 to that.
+```
+  {{ template "t2.html" }}
+```
+To pass arguement from template 1 to template 2
+```
+  {{ template "t2.html" . }}
 ```
 ## Arguments-Variables-Pipelines
 Because this hasn't example code, we have to do some example at: [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter5/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/arg-var-pipe)
 ### Arguments
 In template, we have a argument as arg
-> {{ if arg }}
-> some content
-> {{ end }}
+```
+  {{ if arg }}
+    some content
+  {{ end }}
+```
 ### Variables
-In template, we also create a variable
-> {{ range $key, $value := . }}
->   The key is {{ $key }} and the value is {{ $value }}
-> {{ end }}
+If you use maps object, we can easy to create variable on template as sample below
+```
+{{ range $key, $value := . }}
+   The key is {{ $key }} and the value is {{ $value }}
+{{ end }}
+```
+**More details:** [iterator](https://github.com/huavanthong/MasterGolang/tree/feature/chapter5/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/iterator)
+
+
+If you want pass multiple multiple variable, we also need to use maps as sample below:
+```
+serve.go
+	varmap := map[string]interface{}{
+		"index": 100,
+		"info":  "This is a info at index 100",
+	}
+template.html
+    <div> Index get from server:{{ .index }}</div>
+    <div> Value get from server:{{ .info }}</div>
+```
+**More details:** [arg-var-pipe](https://github.com/huavanthong/MasterGolang/tree/feature/chapter5/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/arg-var-pipe)
 ### Pipelines
 To create pipeline on template
 ```

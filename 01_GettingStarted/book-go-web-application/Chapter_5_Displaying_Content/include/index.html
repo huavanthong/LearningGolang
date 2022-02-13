@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Go Web Programming</title>
+  </head>
+  <body>
+    <div>
+        <button id="tmplButton" class="float-left submit-button" >Include Action</button>
+    </div>
+    <div>
+        <button id="tmplButton1" class="float-left submit-button" >Pass arg</button>
+    </div>
+    
+    <script type="text/javascript">
+        document.getElementById("tmplButton").onclick = function () {
+            location.href = "process";
+        };
+        document.getElementById("tmplButton1").onclick = function () {
+            location.href = "process1";
+        };
+    </script>
+  </body>
+</html>
