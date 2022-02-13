@@ -28,14 +28,16 @@ This tutorial will help you answer question below:
 * [How does we depend against XSS attacks?](#Defending-against-XSS-attacks)
 * [What is unescaping HTML?](#Unescaping-HTML)
 # Nesting templates
-
+* [How do you define a template inside a temple file?](#Nesting-templates)
+* [How do you define a template for each file?](#Nesting-templates)
 # Using the block action to define default templates
+* [Why we need to use block-action for our application?](#Block-action)
 
 
 
-# Template-and-Template-Engine
+## Template-and-Template-Engine
 
-## Parsing-templates
+### Parsing-templates
 To get a template in your working directory, please prepare:
 - tmpl.html
 - tmpl2.html
@@ -58,7 +60,7 @@ Golang provides another mechanism to handle errors returned by parsing templates
 t := template.Must(template.ParseFiles("tmpl.html"))
 ```
 
-## Executing-templates
+### Executing-templates
 After we have a parse template struct, we can execute it
 ```
 t.Execute(w) 
@@ -333,3 +335,34 @@ Output:
   <script>alert('Pwnd!');</script>
 ```
 Please try to do it at [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter5-part5.6/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/xss)
+
+## Nesting-templates
+to define a template explicity
+```
+{{ define "layout" }}
+  ....
+{{ end }}
+```
+
+To define multiple templates in a single template file
+```
+{{ define "layout" }}
+  ....
+{{ end }}
+
+{{ define "content" }}
+  Hello World!
+{{ end }}
+```
+
+For using explicitly defined templates
+```
+func process(w http.ResponseWriter, r *http.Request) {
+  t, _ := template.ParseFiles("layout.html")
+  t.ExecuteTemplate(w, "layout", "")
+}
+```
+**More details:** [nested1](https://github.com/huavanthong/MasterGolang/tree/feature/chapter5/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/nested1)
+
+## Block-action
+More details: [nest3](https://github.com/huavanthong/MasterGolang/tree/feature/chapter5/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/nested3)
