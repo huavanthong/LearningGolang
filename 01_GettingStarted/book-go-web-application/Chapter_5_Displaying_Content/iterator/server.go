@@ -11,6 +11,38 @@ func process(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, daysOfWeek)
 }
 
+// Solution to create multiple 2d array in Golang
+type Foo struct {
+	Data [9][9]int
+}
+
+// Create slice two dimensional
+func process2(w http.ResponseWriter, r *http.Request) {
+
+	t := template.Must(template.New("example").Parse(`
+		<table>
+		{{range .Data}}
+		<tr>
+		{{range .}}<td>{{.}}</td>{{end}}
+		</tr>
+		{{end}}
+    `))
+
+	// Create a struct with array 2d in Go
+	foo := new(Foo)
+
+	// Assign value to Golang
+	for i := 0; i < len(foo.Data); i++ {
+		for j := 0; j < len(foo.Data); j++ {
+			foo.Data[i][j] = j
+		}
+	}
+
+	// Pass array to html
+	t.Execute(w, foo)
+	// ===> Please implement template match to array 2d at tmpl2.html
+}
+
 // Create map info and pass to template
 func process3(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("tmpl3.html")
@@ -32,6 +64,7 @@ func main() {
 		Addr: "127.0.0.1:8080",
 	}
 	http.HandleFunc("/process", process)
+	http.HandleFunc("/process2", process2)
 	http.HandleFunc("/process3", process3)
 
 	server.ListenAndServe()
