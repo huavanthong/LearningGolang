@@ -32,9 +32,20 @@ func process3(w http.ResponseWriter, r *http.Request) {
 	t, _ := template.ParseFiles("tmpl3.html")
 
 	var index int = 10
+	ptr_to_index := new(int)
+	ptr_to_index = &index
+
 	// var info string = "I'm a value at index"
-	t.Execute(w, index)
+	t.Execute(w, ptr_to_index)
 	// t.Execute(w, info)
+}
+
+/************************************************************************************************
+Create main page to display all action in this project
+************************************************************************************************/
+func index(w http.ResponseWriter, r *http.Request) {
+	t, _ := template.ParseFiles("index.html")
+	t.Execute(w, index)
 }
 
 func main() {
