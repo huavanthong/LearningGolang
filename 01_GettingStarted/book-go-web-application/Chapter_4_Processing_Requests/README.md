@@ -120,16 +120,19 @@ Suppose we implement html form as below:
       <input type="submit"/>
 </form>
 ```
-In folder form, If only run on brower
+**Case 1:** In folder form, If only run on brower
 ```
     http://localhost:8080/process?hello=world&thread=123
 Output:
     map[hello:[world] thread:[123]]
 ```
-In folder form, if run client.html, and submit post request, we will see
+**Case 2:** In folder form, if run client.html, and submit post request, we will see
 ```
     map[hello:[sau sheong world] post:[456] thread:[123]]
 ```
+**What is the difference between Case 1 and Case 2?**
+- Hello is a key, if you only run case 1, key: hello will have a value: world
+- In case 2, key: hello must get a value from input firstly ( name="hello" value="sau sheong"), if it finishs, it will insert more value "world" from action request. That is a reason why you can see value: [sau sheong world]. And have more keys when you parse form request.
 ## PostForm
 Our action, we submit a POST request with:
 * first_name = sau sheong
