@@ -20,11 +20,17 @@ This tutorial will help you answer question below:
 * [What is Gob package? What things can we do with it?](#Gob)
 * [How many ways to read/write a file in Golang?](#Ways-to-read/write-a-file)
 * [Demo a example to read and write to a file](#Reading-and-writing-to-a-file)
-
+* [What is the difference between CSV file and using Gob package?](#Gob-package)
 
 # 6.3 Go and SQL
+* [What is the commands PostgreSQL for setting Database?](#Setting-up-the-database:)
+* [Are you understand about work-flow to access database on PostgresSQL yet?](#work-flow)
+* [How do you get the database driver?](#Register-the-database-driver)
+* [What is work flow running a database driver?](#work-flow-1)
 
 # 6.4 Go and SQL relationships
+* [How many basic relationships in Database?](#Go-and-SQL-relationships)
+* [How are you setting SQL with realtions](#Setting-up-the-database-with-realtionships)
 
 # 6.5 Go relational mappers
 
@@ -208,3 +214,86 @@ func load(data interface{}, filename string) {
 }
 ```
 More details: [gob_store](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_6_Storing_Data/gob_store)
+
+
+## Go-and-SQL
+More details: [sql_store1](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_6_Storing_Data/sql_store1)
+
+### Setting-up-the-database:
+Once you’ve created the database, you’ll follow these steps:
+1. Create the database user.
+2. Create the database for the user.
+3. Run the setup script that’ll create the table that you need.
+#### To create a Postgres database user called gwp
+- option -P: tells the createuser program to prompt you for a password for gwp.
+- option -d: tells the program to allow gwp to create databases.
+```
+    createuser -P -d gwp
+```
+#### To create a database named gwp
+```
+    createdb gwp
+```
+#### To run script sql
+- Create a file setup.sql
+```
+    psql -U gwp -f setup.sql -d gwp
+```
+### Connecting to the database
+To connect to the database
+```
+var Db *sql.DB
+
+// connect to the Db
+func init() {
+	var err error
+	Db, err = sql.Open("postgres", "user=gwp dbname=gwp password=gwp sslmode=disable")
+	if err != nil {
+		panic(err)
+	}
+}
+```
+#### Work-flow
+1. The sql.DB struct is a handle to the database and represents a pool of zero or database connections that’s maintained by the **sql** package.  
+2. Setting up the connection to the database is a one-liner using the **Open** function.  
+    - Passing in the database driver name (in our case, it’s postgres).
+    - And a data source name.
+        - The data source name is a string that’s specific to the database drive and tells the driver how to connect to the database. 
+3. The **Open** function then returns a pointer to a **sql.DB struct**.
+**Note:** 
+    - the Open function doesn’t connect to the database or even validate the parameters yet—it simply sets up the necessary structs for connection to the database late.
+    - The connection will be set up lazily when it’s needed.
+    - **sql.DB** doesn’t needed to be closed (you can do so if you like); **it’s simply a handle and not the actual connection**. Remember that this abstraction contains a pool of database connections and will maintain them.
+### Register-the-database-driver 
+To register database driver
+```
+    sql.Register("postgres", &drv{})
+```
+#### Work-flow
+
+### Usage on Database
+To create a post.
+```
+func (post *Post) Create() (err error) {
+	statement := "insert into posts (content, author) values ($1, $2) returning id"
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+	err = stmt.QueryRow(post.Content, post.Author).Scan(&post.Id)
+	return
+}
+```
+
+## Go-and-SQL-relationships
+One of the reasons relational databases are so popular for storing data is because tables can be related. This allows pieces of data to be related to each other in a consistent and easy-to-understand way.  
+There are essentially four ways of relating a record to other records.
+* **One to one** (has one)—A user has one profile, for example.
+* **One to many** (has many)—A user has many forum posts, for example.
+* **Many to one** (belongs to)—Many forum posts belong to one user, for example.
+* **Many to many** —A user can participate in many forum threads, while a forum thread can also have many users contributing to it, for example.\
+
+### Setting-up-the-database-with-realtionships
+
+### One-to-many relationships
