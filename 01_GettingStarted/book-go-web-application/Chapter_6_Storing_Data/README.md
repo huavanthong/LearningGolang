@@ -1,5 +1,6 @@
+# Introduction
 We introduced data persistence in chapter 2, briefly touching on how to persist data into a relational database, PostgreSQL.  
-In this chapter we’ll delve deeper into data persistence and talk about how you can store data in memory, files, relational databases, and No SQL databases.  
+In this chapter 6, we’ll delve deeper into data persistence and talk about how you can store data in memory, files, relational databases, and No SQL databases.  
 Data persistence is technically not part of web application programming, but it’s often considered the third pillar of any web application—the other two pillars are templates and handlers.  
 This is because most web applications need to store data in one form or another.  
 I’m generalizing but here are the places where you can store data:
@@ -23,7 +24,7 @@ This tutorial will help you answer question below:
 * [What is the difference between CSV file and using Gob package?](#Gob-package)
 
 # 6.3 Go and SQL
-* [What is the commands PostgreSQL for setting Database?](#Setting-up-the-database:)
+* [What is the commands PostgreSQL for setting Database?](#Setting-up-the-database)
 * [Are you understand about work-flow to access database on PostgresSQL yet?](#work-flow)
 * [How do you get the database driver?](#Register-the-database-driver)
 * [What is work flow running a database driver?](#work-flow-1)
@@ -53,8 +54,8 @@ var PostById map[int]*Post
 var PostsByAuthor map[string][]*Post
 ```
 You have two variables: 
-* PostById maps the unique ID to a pointer to a post
-* PostsByAuthor maps the author’s name to a slice of pointers to posts.
+* PostById maps the unique ID to a pointer to a post.
+* PostsByAuthor maps the author’s name to a slice of pointers to posts.  
 More detaisl: [map_store](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_6_Storing_Data/map_store)
 
 ### Output
@@ -259,7 +260,7 @@ func init() {
     - Passing in the database driver name (in our case, it’s postgres).
     - And a data source name.
         - The data source name is a string that’s specific to the database drive and tells the driver how to connect to the database. 
-3. The **Open** function then returns a pointer to a **sql.DB struct**.
+3. The **Open** function then returns a pointer to a **sql.DB struct**.  
 **Note:** 
     - the Open function doesn’t connect to the database or even validate the parameters yet—it simply sets up the necessary structs for connection to the database late.
     - The connection will be set up lazily when it’s needed.
@@ -272,7 +273,8 @@ To register database driver
 #### Work-flow
 
 ### Usage on Database
-To create a post.
+#### Create a post
+Implement a Create() function. 
 ```
 func (post *Post) Create() (err error) {
 	statement := "insert into posts (content, author) values ($1, $2) returning id"
@@ -285,7 +287,81 @@ func (post *Post) Create() (err error) {
 	return
 }
 ```
-
+To use it
+```
+	post := Post{Content: "Hello World!", Author: "Sau Sheong"}
+    post.Create()
+```
+#### Retrieving a post
+Implement a GetPost() function.
+```
+// Get a single post
+func GetPost(id int) (post Post, err error) {
+	post = Post{}
+	err = Db.QueryRow("select id, content, author from posts where id = $1", id).Scan(&post.Id, &post.Content, &post.Author)
+	return
+}
+```
+To use it
+```
+	readPost, _ := GetPost(post.Id)
+```
+#### Updating a post
+Implement a Update() function.
+```
+// Update a post
+func (post *Post) Update() (err error) {
+	_, err = Db.Exec("update posts set content = $2, author = $3 where id = $1", post.Id, post.Content, post.Author)
+	return
+}
+```
+To use it
+```
+	// Update the post
+	readPost.Content = "Bonjour Monde!"
+	readPost.Author = "Pierre"
+	readPost.Update()
+```
+#### Deleting a post
+Implement a Update() function.
+```
+// Delete a post
+func (post *Post) Delete() (err error) {
+	_, err = Db.Exec("delete from posts where id = $1", post.Id)
+	return
+}
+```
+To use it
+```
+	// Delete the post
+	readPost.Delete()
+```
+#### Getting all posts
+Implement a Update() function.
+```
+// get all posts
+func Posts(limit int) (posts []Post, err error) {
+	rows, err := Db.Query("select id, content, author from posts limit $1", limit)
+	if err != nil {
+		return
+	}
+	for rows.Next() {
+		post := Post{}
+		err = rows.Scan(&post.Id, &post.Content, &post.Author)
+		if err != nil {
+			return
+		}
+		posts = append(posts, post)
+	}
+	rows.Close()
+	return
+}
+```
+To use it
+```
+	// Get all posts
+	posts, _ := Posts(10)
+```
 ## Go-and-SQL-relationships
 One of the reasons relational databases are so popular for storing data is because tables can be related. This allows pieces of data to be related to each other in a consistent and easy-to-understand way.  
 There are essentially four ways of relating a record to other records.
