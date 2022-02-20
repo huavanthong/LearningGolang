@@ -14,7 +14,19 @@ This tutorial will help you answer question below:
 * [How to implement a API to get a struct data from a member in Golang?](#In-memory-storage)
 * [Suppose that if we fill a data with the same ID, it will happen a error on our program?](Issue-1)
 
+# 6.2 File storage
+* [What is disadvantage for using in-memory? Why we need File storage?](#File-storage)
+* [What is CVS? What things can we do with it?](#CVS)
+* [What is Gob package? What things can we do with it?](#Gob)
+* [How many ways to read/write a file in Golang?](#Ways-to-read/write-a-file)
+* [Demo a example to read and write to a file](#Reading-and-writing-to-a-file)
 
+
+# 6.3 Go and SQL
+
+# 6.4 Go and SQL relationships
+
+# 6.5 Go relational mappers
 
 ## In-memory-storage
 In-memory storage refers not to storing data in in-memory databases but in the running application itself, to be used while the application is running. In-memory data is usually stored in data structures, and for Go, this primarily means with arrays, slices, maps, and most importantly, structs.
@@ -37,7 +49,7 @@ var PostsByAuthor map[string][]*Post
 You have two variables: 
 * PostById maps the unique ID to a pointer to a post
 * PostsByAuthor maps the author’s name to a slice of pointers to posts.
-More detaisl: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_6_Storing_Data/map_store)
+More detaisl: [map_store](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_6_Storing_Data/map_store)
 
 ### Output
 ```
@@ -59,4 +71,107 @@ What is happened if we fill a two data with the same ID to our program?
 How we can depend the issue on the above case?
 
 ## File-storage
+Storing in memory is fast and immediate because there’s no retrieval from disk. But there’s one very important drawback: in-memory data isn’t actually persistent.  
+There are a number of ways data can be persisted, but the most common method is to store it to some sort of nonvolatile storage such as a hard disk or flash memory.  
+Specifically we’ll explore two ways of storing data to files in Go:
+1. Text format file.
+2. CVS(comma-seperated values): 
+### CSV
+CSV is a common file format that’s used for transferring data from the user to the system.  
+* It can be quite useful when you need to ask your users to provide you with a large amount of data and it’s not feasible to ask them to enter the data into your [forms](#https://www.meisternote.com/app/note/OjXGfZF7AK_C/4-2-html-forms-and-go).  
+* You can ask your users to use their favorite spreadsheet, enter all their data, and then save it as CSV and upload it to your web application.  
+* Once you have the file,File storage you can decode the data for your purposes.
+* Similarly, you can allow your users to get their data by creating a CSV file out of their data and sending it to them from your web application.
+### Gob
+Gob is a binary format that can be saved in a file, providing a quick and effective means of serializing in-memory data to one or more files.
 
+### Ways-to-read/write-a-file
+#### Using WriteFile and ReadFile
+To write to file 
+```
+    err := ioutil.WriteFile("data1", data, 0644)
+```
+
+To read from file
+```
+    read1, _ := ioutil.ReadFile("data1")
+```
+#### Using File struct
+To create a file
+```
+    file1, _ := os.Create("data2")
+    defer file1.Close()
+```
+
+To write to file
+```
+    bytes, _ := file1.Write(data)
+```
+
+To open a file
+```
+    file2, _ := os.Open("data2")
+	defer file2.Close()
+```
+
+To read from file
+```
+	read2 := make([]byte, len(data))
+	bytes, _ = file2.Read(read2)
+```
+More detaisl: [read_write_files](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_6_Storing_Data/read_write_files)
+### Reading-and-writing-to-a-file
+To create a CSV file.
+```
+    csvFile, err := os.Create("posts.csv")	
+    if err != nil {
+		panic(err)
+	}
+	defer csvFile.Close()
+```
+
+To write to a CSV file. Using [encoding/csv](https://pkg.go.dev/encoding/csv) package
+```
+	writer := csv.NewWriter(csvFile)
+	for _, post := range allPosts {
+		line := []string{strconv.Itoa(post.Id), post.Content, post.Author}
+		err := writer.Write(line)
+		if err != nil {
+			panic(err)
+		}
+	}
+	writer.Flush()
+```
+
+To open a CSV file.
+```
+    file, err := os.Open("posts.csv")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+```
+
+To read a CSV file.
+```
+    reader := csv.NewReader(file)
+	reader.FieldsPerRecord = -1
+	record, err := reader.ReadAll()
+	if err != nil {
+		panic(err)
+	}
+```
+
+To contain the content CSV file to the buffer.
+```
+	var posts []Post
+	for _, item := range record {
+		id, _ := strconv.ParseInt(item[0], 0, 0)
+		post := Post{Id: int(id), Content: item[1], Author: item[2]}
+		posts = append(posts, post)
+	}
+```
+More details: [csv_store](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_6_Storing_Data/csv_store)
+### Gob-package
+
+More details: [gob_store](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_6_Storing_Data/gob_store)
