@@ -173,5 +173,38 @@ To contain the content CSV file to the buffer.
 ```
 More details: [csv_store](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_6_Storing_Data/csv_store)
 ### Gob-package
+The encoding/gob package manages streams of gobs, which are binary data, exchanged between an encoder and a decoder. It’s designed for serialization and transporting data but it can also be used for persisting data.  
+Encoders and decoders wrap around writers and readers, which conveniently allows you to use them to write to and read from files.  
+  
+To store data by encoding using Gob.
+```
+func store(data interface{}, filename string) {
+	buffer := new(bytes.Buffer)
+	encoder := gob.NewEncoder(buffer)
+	err := encoder.Encode(data)
+	if err != nil {
+		panic(err)
+	}
+	err = ioutil.WriteFile(filename, buffer.Bytes(), 0600)
+	if err != nil {
+		panic(err)
+	}
+}
+```
 
+To load data by decoding using Gob.
+```
+func load(data interface{}, filename string) {
+	raw, err := ioutil.ReadFile(filename)
+	if err != nil {
+		panic(err)
+	}
+	buffer := bytes.NewBuffer(raw)
+	dec := gob.NewDecoder(buffer)
+	err = dec.Decode(data)
+	if err != nil {
+		panic(err)
+	}
+}
+```
 More details: [gob_store](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_6_Storing_Data/gob_store)
