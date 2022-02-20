@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Go Web Programming</title>
+  </head>
+  <body>
+    <div>
+        <button id="myButton" class="float-left submit-button" >Google</button>
+    </div>
+    <div>
+        <button id="tmplButton1" class="float-left submit-button" >Template 1</button>
+    </div>
+    <div>
+        <button id="tmplButton2" class="float-left submit-button" >Template 2</button>
+    </div>
+    <div>
+        <button id="tmplButton3" class="float-left submit-button" >Template 2</button>
+    </div>
+    
+    <script type="text/javascript">
+        document.getElementById("myButton").onclick = function () {
+            location.href = "google.com";
+        };
+        document.getElementById("tmplButton1").onclick = function () {
+            location.href = "process";
+        };
+        document.getElementById("tmplButton2").onclick = function () {
+            location.href = "process2";
+        };
+        document.getElementById("tmplButton3").onclick = function () {
+            location.href = "process3";
+        };
+    </script>
+  </body>
+</html>
