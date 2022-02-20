@@ -1,36 +1,36 @@
 To get details contents, please refer to chapter 5 at book go-web-application.  
 This tutorial will help you answer question below:
-# Templates and template engine
+# 5.1 Templates and template engine
 * [The difference between templates and template engine?](#Template-and-Template-Engine)
 * [How to parse templates on Go?](#Parsing-templates)
 * [How we can transfer variable to html?](#Parsing-templates)
 * [Suppose template have an error, how we know and handle it?](#Parsing-templates)
 * [What is panic error in Golang?](#Parsing-templates)
 * [Could you use another way to parse template on Go? What is executing templates?](#Executing-templates)
-# Actions 
+# 5.3 Actions 
 * [What is actions in Golang? How we use it?](#Actions)
 * [How we can create logic "if-else" in Golang?](#Contional-actions)
 * [How we create for loop in Go?](#Iterator-actions)
 * [How we create for loop with two dimensional array, slice or loop in maps object?](#Iterator-actions)
 * [You know about actions, thinking it, could you set actions for it or not??](#Set-actions)
 * [Suppose we have many file html, how can we include all tempalate to one action?](#Include-actions)
-# Arguments, variables and pipelines
+# 5.4 Arguments, variables and pipelines
 * [What is arguement in a template Golang?](#Arguments)
 * [How we create variable and pass to template, what expereicen for you?](#Variables)
 * [What is pipeline in Golang, how we use it in templates, what is benefit to use it](#Pipelines)
-# Functions
+# 5.5 Functions
 * [How to create a function map to template engine?](#Functions)
 * [What is work flow running Funcmap in Golang?](#Work-flow)
 * [How many application for using function in Golang](#App)
-# Context awareness
+# 5.6 Context awareness
 * [What is contex-aware in Golang?](#Context-awareness)
 * [What is XSS attacks?](#What-is-XSS-attacks)
 * [How does we depend against XSS attacks?](#Defending-against-XSS-attacks)
 * [What is unescaping HTML?](#Unescaping-HTML)
-# Nesting templates
+# 5.7 Nesting templates
 * [How do you define a template inside a temple file?](#Nesting-templates)
 * [How do you define a template for each file?](#Nesting-templates)
-# Using the block action to define default templates
+# 5.8 Using the block action to define default templates
 * [Why we need to use block-action for our application?](#Block-action)
 
 
