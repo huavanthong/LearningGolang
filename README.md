@@ -11,6 +11,10 @@ Let start learnning on Golang programming.
 
 ## 02_Documents
 Documents recommends to learn about knowledge or issues knowledge manage.
+### **Books**
+To get more about books for learning about Golang.
+> https://github.com/diptomondal007/GoLangBooks
+
 
 
 ## 03_ReferenceProject
