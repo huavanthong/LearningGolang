@@ -14,7 +14,7 @@ Documents recommends to learn about knowledge or issues knowledge manage.
 ### **Books**
 Book 1: To get more about books for learning about Golang 
 > https://github.com/diptomondal007/GoLangBooks
-Book 2:
+Book 2:  
 > https://github.com/muthukumarse/books-1
 
 
