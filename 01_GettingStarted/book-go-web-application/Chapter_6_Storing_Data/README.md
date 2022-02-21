@@ -28,10 +28,17 @@ This tutorial will help you answer question below:
 * [Are you understand about work-flow to access database on PostgresSQL yet?](#work-flow)
 * [How do you get the database driver?](#Register-the-database-driver)
 * [What is work flow running a database driver?](#work-flow-1)
+* [At Create() methods, why we need prepare statement before insert a value to PostgreSQL?](#Create-a-post)
+* [How do you implement a function to retrieve data from PostgreSQL? Expand your knowledge!](#Retrieving-a-post)
+* [What command in DB to update a data? We based on what things to update data?](#Updating-a-post)
+* [Delete a record in DB.](#Deleting-a-post)
 
 # 6.4 Go and SQL relationships
 * [How many basic relationships in Database?](#Go-and-SQL-relationships)
 * [How are you setting SQL with realtions](#Setting-up-the-database-with-realtionships)
+* [How do you create a one-to-many relationships?](#One-to-Many)
+* [How do you create multiple comments into a post?](#one-to-Many)
+* [How do you create a one-to-one relationships?](#One-to-One)
 
 # 6.5 Go relational mappers
 
@@ -273,8 +280,12 @@ To register database driver
 #### Work-flow
 
 ### Usage on Database
-#### Create a post
-Implement a Create() function. 
+#### Create-a-post
+Implement a Create() function.  
+**Note:**
+- You’re not filling in the Id field because it’ll be populated by the database(as an auto-incremented primary key). 
+- Create() use the receiver of the methods to post a data.
+- To understand why we need prepare statement before insert value to DB. Refer: [here](https://en.wikipedia.org/wiki/Prepared_statement)
 ```
 func (post *Post) Create() (err error) {
 	statement := "insert into posts (content, author) values ($1, $2) returning id"
@@ -290,9 +301,9 @@ func (post *Post) Create() (err error) {
 To use it
 ```
 	post := Post{Content: "Hello World!", Author: "Sau Sheong"}
-    post.Create()
+	post.Create()
 ```
-#### Retrieving a post
+#### Retrieving-a-post
 Implement a GetPost() function.
 ```
 // Get a single post
@@ -306,7 +317,7 @@ To use it
 ```
 	readPost, _ := GetPost(post.Id)
 ```
-#### Updating a post
+#### Updating-a-post
 Implement a Update() function.
 ```
 // Update a post
@@ -322,8 +333,8 @@ To use it
 	readPost.Author = "Pierre"
 	readPost.Update()
 ```
-#### Deleting a post
-Implement a Update() function.
+#### Deleting-a-post
+Implement a Delete() function.
 ```
 // Delete a post
 func (post *Post) Delete() (err error) {
@@ -372,4 +383,38 @@ There are essentially four ways of relating a record to other records.
 
 ### Setting-up-the-database-with-realtionships
 
-### One-to-many relationships
+### relationships
+#### One-to-Many
+To create one-to-many relationships. Means that one post have many comments.
+At Post struct:
+```
+type Post struct {
+	Id int
+	Content string
+	Author string
+	Comments []Comment // This is a slice of Comments inside struct Post.
+}
+```
+At Comment struct:
+```
+type Comment struct {
+	Id int
+	Content string
+	Author string
+	Post *Post // This is a pointer to refer Post struct.
+}
+```
+How to use it
+```
+	post := Post{Content: "Hello World!", Author: "Sau Sheong"}
+	post.Create()
+
+	// Add a comment
+	comment := Comment{Content: "Good post!", Author: "Joe", Post: &post}
+	comment.Create()
+```
+To create multiple comments for a post.
+```
+
+```
+#### One-to-One
