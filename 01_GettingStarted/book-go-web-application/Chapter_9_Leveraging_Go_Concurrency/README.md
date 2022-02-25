@@ -3,7 +3,8 @@ This tutorial will help you answer question below:
 
 # 9.1 Goroutines
 * [How do you use goroutines in Golang?](#Goroutines)
-* [Why do you run printLetters1() case at using-goroutine, you don't see any output?(#Goroutines)
+* [Why do you run printLetters1() case at using-goroutine, you don't see any output?](#Issue-1)
+* [Is that fair if TestGoPrint1 is set delay time 1s while TestPrint1 run quickly?](#Issue-2)
 * [What purpose for waiting for goroutine?](#Waiting-for-goroutines)
 
 
@@ -21,13 +22,64 @@ To run test case.
 ```
     go test –v
 ```
+Ouput
+```
+=== RUN TestPrint1
+0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J --- PASS: TestPrint1 (0.00s)
+=== RUN TestGoPrint1
+--- PASS: TestGoPrint1 (0.00s)
+PASS
+```
 #### Issue-1
 If you can't see output at test case 2, because the processing work being done before goroutine display the output. 
-To fix this issue, you need to add a line code
+To fix this issue, you need to add a line code.
 ```
+func TestGoPrint1(t *testing.T) {
+    goPrint1()
     time.Sleep(1 * time.Millisecond)
+}
+```
+Output
+```
+=== RUN TestPrint1
+0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J --- PASS: TestPrint1 (0.00s)
+=== RUN TestGoPrint1
+0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J --- PASS: TestGoPrint1 (0.00s)
+PASS
 ```
 #### Issue-2
+As you see, both run the same  way with the same output.  
+The reasonyou get the same results is that printNumbers1 and printLetters1 ran so quickly, it made no difference whether or not the functions were running independently.  
+To simulate processing work, you’ll add a time delay using the Sleep function in the time package, and re-create the two functions as printNumbers2 and printLetters2 in **goroutine.go**.
+```
+func printNumbers2() {
+    for i := 0; i < 10; i++ {
+        time.Sleep(1 * time.Microsecond
+        fmt.Printf("%d ", i)
+    }
+}
+func printLetters2() {
+    for i := 'A'; i < 'A'+10; i++ {
+        time.Sleep(1 * time.Microsecond)
+        fmt.Printf("%c ", i)
+    }
+}
+func goPrint2() {
+    go printNumbers2()
+    go printLetters2()
+}
+```
+Output
+```
+=== RUN TestPrint1
+0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J --- PASS: TestPrint1 (0.00s)
+=== RUN TestGoPrint1
+0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J --- PASS: TestGoPrint1 (0.00s)
+=== RUN TestGoPrint2
+A 0 B 1 C D 2 E 3 F 4 G H 5 I 6 J 7 8 9 --- PASS: TestGoPrint2 (0.00s)
+PASS
+```
+#### Issue-3
 If you run this code again, the last line produces a differnt result. In fact, **printNumbers2** and **printLetters2** run independently and fight to print to the screen. Running repeatedly will produce different results each time. If you’re using a Go version prior to Go 1.5, you might get the same results each time. Why?  
 
 This is because the default behavior in versions prior to Go 1.5 is to use just one CPU (even though you might have more than one CPU in my computer), unless stated otherwise. Since Go 1.5, the default behavior is the reverse—the Go runtime uses as many CPUs as the computer has. To use just one CPU, use this command:
