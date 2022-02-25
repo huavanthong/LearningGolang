@@ -47,6 +47,7 @@ Take a look at the previous part:
 * Right now, you saw how goroutines are run independently.
 * You also saw how the goroutines started in the program would end unceremoniously when the program ended. You got away with it by adding a time delay using the Sleep() function,
 but that’s a very hacky way of handling it. Refer: [here](#Issue-1)  
+
 Although the danger of a program ending before the goroutines can complete is less probable in any serious code (because you’ll know right away and change it), you may often encounter a need to ensure all goroutines complete before moving on to the next thing.
 #### sync-package
 Go provides a simple mechanism called the **WaitGroup**, which is found in the **sync** package. The mechanism is straightforward:
