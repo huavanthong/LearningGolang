@@ -123,3 +123,10 @@ If you forget to decrement the counter. And you run this program, we will make e
 0 A 1 B 2 C 3 D 4 E 5 F 6 G 7 H 8 I 9 J fatal error: all goroutines are
 asleep - deadlock!
 ```
+## Channels
+* In the previous example, you saw how the **go** keyword can be used to convert normal functions into goroutines and execute them indenpendently. [here](#Using-goroutines)
+* In the last subsection, you also saw how to use WaitGroups to synchronize between independently running goroutines.
+In this section, you’ll learn how goroutines can communicate with each other using channels.
+### Usage
+You can think 
+
