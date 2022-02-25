@@ -125,7 +125,8 @@ asleep - deadlock!
 ```
 ## Channels
 * In the previous example, you saw how the **go** keyword can be used to convert normal functions into goroutines and execute them indenpendently. [here](#Using-goroutines)
-* In the last subsection, you also saw how to use WaitGroups to synchronize between independently running goroutines.
+* In the last subsection, you also saw how to use WaitGroups to synchronize between independently running goroutines. [here](#Waiting-for-goroutines)
+
 In this section, you’ll learn how goroutines can communicate with each other using channels.
 ### Usage
 You can think 
