@@ -135,25 +135,27 @@ In this section, you’ll learn how goroutines can communicate with each other u
 ### Usage
 To allocates a channel of integer
 ```
-    ch := make(chan int)
+ch := make(chan int)
 ```
 Channels are, by default, unbuffered.  If an optional integer parameter is provided, a buffered channel of the given size is allocated instead. This creates a buffered channel of integers with the size 10:
 ```
-    ch := make(chan int, 10)
+ch := make(chan int, 10)
 ```
 The syntax for putting things into a channel is quickly recognizable, visually. This puts an integer 1 into the channel ch:
 ```
-    ch <- 1
+ch <- 1
 ```
 Taking out the value from a channel is equally recognizable. This removes the value from the channel and assigns it to the variable i:
 ```
-    i := <- ch
+i := <- ch
 ```
 Channels can be directional. By default, channels work both ways (bidirectional) and values can be sent to or received from it. But channels can be restricted to send-only or receive-only. This allocates a send-only channel of strings:
 ```
-    ch := make(chan <- string)
+ch := make(chan <- string)
 ```
 This allocates a receive-only channel of strings:
 ```
-    ch := make(<-chan string)
+ch := make(<-chan string)
 ```
+### Synchronization-with-channels
+Refer: [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter9/01_GettingStarted/book-go-web-application/Chapter_9_Leveraging_Go_Concurrency/9.3.1_Synchronization_with_channels)
