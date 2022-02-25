@@ -10,7 +10,11 @@ This tutorial will help you answer question below:
 * [What is work-flow for using waitGroup?](#Work-flow-using-WaitGroup)
 * [What happens if you forget to decrement the counter in one of the goroutines?](#Issue-4)
 # Channels
-
+* [How do you create a channel for goroutine?](#Usage)
+* [How do you create a buffered channel for goroutine?](#Usage)
+* [Thinks about the difference between a unbuffered channel (default) and a buffered channel?](#Usage)
+* [How do you create a channel directly?](#Usage)
+ 
 
 ## Goroutines
 ### Using-goroutines
@@ -127,7 +131,29 @@ asleep - deadlock!
 * In the previous example, you saw how the **go** keyword can be used to convert normal functions into goroutines and execute them indenpendently. [here](#Using-goroutines)
 * In the last subsection, you also saw how to use WaitGroups to synchronize between independently running goroutines. [here](#Waiting-for-goroutines)
 
-In this section, you’ll learn how goroutines can communicate with each other using channels.
+In this section, you’ll learn how goroutines can communicate with each other using channels. More details: [here](https://www.meisternote.com/app/note/F23PWHgBDY5M/9-3-channels)
 ### Usage
-You can think 
-
+To allocates a channel of integer
+```
+    ch := make(chan int)
+```
+Channels are, by default, unbuffered.  If an optional integer parameter is provided, a buffered channel of the given size is allocated instead. This creates a buffered channel of integers with the size 10:
+```
+    ch := make(chan int, 10)
+```
+The syntax for putting things into a channel is quickly recognizable, visually. This puts an integer 1 into the channel ch:
+```
+    ch <- 1
+```
+Taking out the value from a channel is equally recognizable. This removes the value from the channel and assigns it to the variable i:
+```
+    i := <- ch
+```
+Channels can be directional. By default, channels work both ways (bidirectional) and values can be sent to or received from it. But channels can be restricted to send-only or receive-only. This allocates a send-only channel of strings:
+```
+    ch := make(chan <- string)
+```
+This allocates a receive-only channel of strings:
+```
+    ch := make(<-chan string)
+```
