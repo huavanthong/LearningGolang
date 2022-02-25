@@ -1,12 +1,15 @@
 # Introduction
 This tutorial will help you answer question below:
 
-# 9.1 Goroutines
+# Goroutines
 * [How do you use goroutines in Golang?](#Goroutines)
 * [Why do you run printLetters1() case at using-goroutine, you don't see any output?](#Issue-1)
 * [Is that fair if TestGoPrint1 is set delay time 1s while TestPrint1 run quickly?](#Issue-2)
+# Waiting for Goroutines
 * [What purpose for waiting for goroutine?](#Waiting-for-goroutines)
-
+* [What is work-flow for using waitGroup?](#Work-flow-using-WaitGroup)
+* [What happens if you forget to decrement the counter in one of the goroutines?](#Issue-4)
+# Channels
 
 
 ## Goroutines
@@ -109,4 +112,14 @@ Go provides a simple mechanism called the **WaitGroup**, which is found in the *
 3. Decrement the counter using the Done method whenever a goroutine com-
 pletes its task.
 4. Call the Wait method, which will block until the counter is 0.
-
+#### Work-flow-using-WaitGroup
+To get more details about code. Refer: [here](https://github.com/huavanthong/MasterGolang/blob/feature/chapter9/01_GettingStarted/book-go-web-application/Chapter_9_Leveraging_Go_Concurrency/9.2.3_Waiting_for_goroutine/waiting.go)
+```
+You set to waitGroup with counter 2, and you make 2 goroutine in your program. => You need to wait the counter becomes 0. If waiting's done, you finish process. Otherwise, you continue to wait it.
+```
+#### Issue-4
+If you forget to decrement the counter. And you run this program, we will make error below
+```
+0 A 1 B 2 C 3 D 4 E 5 F 6 G 7 H 8 I 9 J fatal error: all goroutines are
+asleep - deadlock!
+```
