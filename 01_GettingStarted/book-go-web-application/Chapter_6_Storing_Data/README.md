@@ -39,7 +39,9 @@ This tutorial will help you answer question below:
 * [How do you create a one-to-many relationships?](#One-to-Many)
 * [How do you create multiple comments into a post?](#one-to-Many)
 * [How do you create a one-to-one relationships?](#One-to-One)
-
+# Usage PostgreSQL command 
+* [How log in to PostgreSQL database by terminal?](#Log-in-Database)
+* [How way to list all users in PostgreSQL?](#list-user)
 # 6.5 Go relational mappers
 
 ## In-memory-storage
@@ -236,18 +238,120 @@ Once you’ve created the database, you’ll follow these steps:
 - option -P: tells the createuser program to prompt you for a password for gwp.
 - option -d: tells the program to allow gwp to create databases.
 ```
-    createuser -P -d gwp
+createuser -P -d gwp
 ```
 #### To create a database named gwp
 ```
-    createdb gwp
+createdb gwp
 ```
 #### To run script sql
 - Create a file setup.sql
 ```
-    psql -U gwp -f setup.sql -d gwp
+psql -U gwp -f setup.sql -d gwp
 ```
-### Connecting to the database
+### Usage command on terminal PostgreSQL
+#### Log-in-Database
+Log in to database with a user which created at above.
+```
+>psql -U gwp -h localhost
+```
+Log in to a default user on PostgreSQL
+```
+>psql -U postgres -h localhost 
+C:\Program Files\PostgreSQL\14\bin>psql -U postgres -h localhost
+Password for user postgres:
+psql (14.0)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=#
+```
+#### To create a database
+```
+postgres=# create database mydb;
+CREATE DATABASE
+```
+#### To list all our database
+```
+postgres=# \l
+                                                     List of databases
+       Name        |  Owner   | Encoding |          Collate           |           Ctype            |   Access privileges
+-------------------+----------+----------+----------------------------+----------------------------+-----------------------
+ bird_encyclopedia | postgres | UTF8     | English_United States.1252 | English_United States.1252 |
+ chitchat          | postgres | UTF8     | English_United States.1252 | English_United States.1252 |
+ mydatabase        | postgres | UTF8     | English_United States.1252 | English_United States.1252 |
+ postgres          | postgres | UTF8     | English_United States.1252 | English_United States.1252 |
+ qrorder           | postgres | UTF8     | English_United States.1252 | English_United States.1252 |
+ sales             | postgres | UTF8     | English_United States.1252 | English_United States.1252 |
+ template0         | postgres | UTF8     | English_United States.1252 | English_United States.1252 | =c/postgres          +
+                   |          |          |                            |                            | postgres=CTc/postgres
+ template1         | postgres | UTF8     | English_United States.1252 | English_United States.1252 | =c/postgres          +
+                   |          |          |                            |                            | postgres=CTc/postgres
+ test_script       | postgres | UTF8     | English_United States.1252 | English_United States.1252 |
+```
+
+#### To list all user account (or roles) in the current PostgreSQL database servers
+##### list-user
+Use psql command to list all users in the current database server.
+```
+postgres=# \du 
+or
+postgres=# \du+
+```
+Use **SELECT** statement to query the user information from the pg_catalog.pg_user catalog.
+```
+SELECT usename AS role_name,
+  CASE 
+     WHEN usesuper AND usecreatedb THEN 
+	   CAST('superuser, create database' AS pg_catalog.text)
+     WHEN usesuper THEN 
+	    CAST('superuser' AS pg_catalog.text)
+     WHEN usecreatedb THEN 
+	    CAST('create database' AS pg_catalog.text)
+     ELSE 
+	    CAST('' AS pg_catalog.text)
+  END role_attributes
+FROM pg_catalog.pg_user
+ORDER BY role_name desc;
+```
+
+#### To create a user with pass word
+```
+postgres=# create user bob with password 'mypass';
+CREATE ROLE
+```
+#### To connect to the database and then build a schema
+```
+postgres=# \c chitchat
+You are now connected to database "chitchat" as user "postgres".
+chitchat=#
+```
+#### To create a schemas on database
+```
+chitchat=# create schema friends;
+CREATE SCHEMA
+```
+#### To create a table in your schemas
+```
+chitchat=# create table friends.test( firstname CHAR(15), lastname CHAR(20));
+CREATE TABLE
+```
+#### To select table in your schema
+```
+chitchat=# select * from friends.test;
+firtname | lastname
+---------+---------
+(0 rows)
+```
+#### To insert a value to your table
+```
+chitchat=# insert into friends.test values('Mike', 'Smith');
+```
+
+
+### Connecting to the database with Golang
 To connect to the database
 ```
 var Db *sql.DB
