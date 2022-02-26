@@ -11,6 +11,7 @@ In this chapter, you’ll learn how to deploy to
 
 # Deploying to servers
 * [What steps to deploy a Go web application to server?](#Steps)
+* [How to set up driver PostgreSQL for web-app?](#Set-up-PostgreSQL)
 # Deploying to Google App Engine
 
 # Deploy to Dokcer
@@ -22,3 +23,61 @@ In this chapter, you’ll learn how to deploy to
 Step to deploy a web app to server:
 * Create an executable binary and the running it off a server that's on the internet.
 * 
+
+### Getting Started
+#### Set-up-PostgreSQL
+Create a user named gwp.
+```
+createuser -P -d gwp
+```
+Create a database named gwp.
+```
+createdb gwp
+```
+Create schema and table data
+```
+psql -U gwp -f setup.sql -d gwp
+```
+#### Insert data 
+Add records to Database
+```
+psql -U gwp -f data.sql -d gwp
+```
+#### Building web app
+Set up web-app to account Database
+```
+From 
+	Db, err = sql.Open("postgres", "user=gwp dbname=gwp password=gwp sslmode=disable")
+To
+    Db, err = sql.Open("postgres", "user=postgres dbname=gwp password=1234 sslmode=disable")
+```
+To buidl a web server
+```
+go build
+```
+#### Run
+To run it on localhosts
+**GET:**
+```
+http://localhost:8080/post/1
+```
+
+**POST:**
+```
+http://localhost:8080/post/1
+```
+
+**PUT:**
+```
+http://localhost:8080/post/1
+```
+
+**DELETE:**
+```
+http://localhost:8080/post/1
+```
+#### Deploy to server
+To run the web service, log into the server and run it from the console:
+```
+./ws-s
+```
