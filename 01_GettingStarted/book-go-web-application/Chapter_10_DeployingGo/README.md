@@ -52,10 +52,11 @@ psql -U gwp -f data.sql -d gwp
 Set up web-app to account Database
 ```
 From 
-	Db, err = sql.Open("postgres", "user=gwp dbname=gwp password=gwp sslmode=disable")
-To
+    Db, err = sql.Open("postgres", "user=gwp dbname=gwp password=gwp sslmode=disable")
+To  
     Db, err = sql.Open("postgres", "user=postgres dbname=gwp password=1234 sslmode=disable")
 ```
+
 To buidl a web server
 ```
 go build
@@ -110,13 +111,14 @@ CONTAINER ID IMAGE ... PORTS NAMES
 eeb674e289a4 ws-d ... 0.0.0.0:80->8080/tcp simple_web_service
 ```
 #### Run app on Docker
-**GET:**
-```
-curl -i -X GET http://127.0.0.1/post/1
-```
 **POST:**
 ```
 curl -i -X POST -H "Content-Type: application/json" -d '{"content":"My first post","author":"Sau Sheong"}' http://127.0.0.1/post/
+```
+
+**GET:**
+```
+curl -i -X GET http://127.0.0.1/post/1
 ```
 ### Pushing your Docker container to the internet
 Dockerizing the simple web service sounds great, but it’s still running locally. What you want is to have it running on the internet. There are a number of ways of doing this, but using the Docker machine is probably the most simple (at the moment, because Docker is still evolving).
@@ -136,12 +138,14 @@ It can also create hosts on private clouds, including clouds running on OpenStac
 Docker Machine isn’t installed along with the main Docker installation; you need to install it separately.
 **Method 1:** To install it on Windows, clone this repository
 ```
-    https://github.com/docker/machine
+https://github.com/docker/machine
 ```
+
 **Method 2:** Downloading the binary for your platform from
 ```
-    https://docs.docker.com/machine/install-machine
+https://docs.docker.com/machine/install-machine
 ``` 
+
 **Method 3:** For Linux, we can use command
 ```
 curl -L https://github.com/docker/machine/releases/download/v0.3.0/docker-machine_linux-amd64 /usr/local/bin/docker-machine

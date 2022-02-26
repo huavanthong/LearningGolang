@@ -27,7 +27,7 @@ Refer to code at: [here](https://github.com/huavanthong/MasterGolang/tree/featur
 If you run on the test case, we don't need to implement content of main() function because it will redirect to test code for running.  
 To run test case. 
 ```
-    go test –v
+go test –v
 ```
 Ouput
 ```
@@ -91,14 +91,14 @@ If you run this code again, the last line produces a differnt result. In fact, *
 
 This is because the default behavior in versions prior to Go 1.5 is to use just one CPU (even though you might have more than one CPU in my computer), unless stated otherwise. Since Go 1.5, the default behavior is the reverse—the Go runtime uses as many CPUs as the computer has. To use just one CPU, use this command:
 ```
-    go test –v –cpu 1
+go test –v –cpu 1
 ```
 
 ### Goroutines-and-performance
 Now that you know how goroutines behave, let’s consider goroutine performance.  
 To run the benchmark.
 ```
-    go test -run x -bench . –cpu 1
+go test -run x -bench . –cpu 1
 ```
 
 
@@ -118,9 +118,10 @@ pletes its task.
 4. Call the Wait method, which will block until the counter is 0.
 #### Work-flow-using-WaitGroup
 To get more details about code. Refer: [here](https://github.com/huavanthong/MasterGolang/blob/feature/chapter9/01_GettingStarted/book-go-web-application/Chapter_9_Leveraging_Go_Concurrency/9.2.3_Waiting_for_goroutine/waiting.go)
-```
-You set to waitGroup with counter 2, and you make 2 goroutine in your program. => You need to wait the counter becomes 0. If waiting's done, you finish process. Otherwise, you continue to wait it.
-```
+> You set to waitGroup with counter 2, and you make 2 goroutine in your program. 
+> => You need to wait the counter becomes 0. If waiting's done, you finish process. 
+> Otherwise, you continue to wait it.
+
 #### Issue-4
 If you forget to decrement the counter. And you run this program, we will make error below
 ```
