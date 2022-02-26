@@ -5,19 +5,22 @@ This is the example repository for [this blog post](https://tutorialedge.net/gol
 ### Build and run image
 To get help from docker
 ```
-$ docker --help
+$docker --help
 ```
 
-To build docker on window. Open CML and enter:
+To build docker image on window. Open CMD and enter:
 ```
-$ docker build -t my-go-app .
+$docker build -t my-go-app .
 ```
+**Note:**
+- If you build a image successfully, you can see image on Docker Desktopn in Windows.  
+
 To run image and pass in the porst we want to map to and the image we wish to run.
 When you run this -p option, means that we're gonna bins a port on my machine to a port within the docker application.
 Therefore, this command below show you: port 8080 on your machine is gonna map to port 8081 inside.
 So if you hit localhost 8080 on brower, it's actually going to route that to port 8081 inside the specific container. 
 ```
-$ docker run -p 8080:8081 -it my-go-app
+$docker run -p 8080:8081 -it my-go-app
 ```
 To check the result:
 ```
@@ -25,18 +28,18 @@ Open brower:
   http://localhost:8080/
 or
 Command line: 
-$ curl http://localhost:8080/
+$curl http://localhost:8080/
 
 ```
 ### Check image
 To verify that our image exists on our machine 
 ```
-$ docker images my-go-app
+$docker images my-go-app
 ```
 To check list of the existence images on docker.
 ```
-$ docker images 
-$ docker images -a
+$docker images 
+$docker images -a
 ```
 
 ### Check container  
@@ -77,27 +80,27 @@ $docker volume rm volume_name volume_name
 ### Remove images
 To stop container on images
 ```
-$ docker stop 95700e0f6884
+$docker stop 95700e0f6884
 ```
 To remove container in images
 ```
-$ docker rm 95700e0f6884
+$docker rm 95700e0f6884
 ```
 To remove image on docker
 ```
-$ docker rmi my-go-app
+$docker rmi my-go-app
 => If it happened error: "conflict: unable to remove repository reference"
-$ docker rmi -f my-go-app
+$docker rmi -f my-go-app
 ```
 To remove all images  
 ```
-$ docker rmi $(docker images -a -q)
+$docker rmi $(docker images -a -q)
 ```
 ## Issue knowledge
 ## 1. Issue related to build docker on Window
 #### Problem
 ```
-$ docker build -t my-go-app .
+$docker build -t my-go-app .
 
 => error: 
 error during connect: This error may indicate that the docker daemon is not running.: ........  The system cannot find the file specified.
@@ -113,7 +116,7 @@ Step 2: Build docker again
 Open docker by start UI
 or
 Open docker by command line (CLI)
-$ docker build -t my-go-app .
+$docker build -t my-go-app .
 
 => error: Docker Desktop Is Shutting Down
 
