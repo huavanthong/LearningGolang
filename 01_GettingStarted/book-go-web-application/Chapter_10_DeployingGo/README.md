@@ -9,27 +9,36 @@ In this chapter, you’ll learn how to deploy to
 - The methods described in this chapter are based on a single person deploying the web app. The processes are usually a lot more involved in a production environment, which includes additiona tasks like running test suites, continual integration, staging servers, and so on.
 - This chapter also introduces many concepts and tools, each of them worthy of an entire book. Therefore, it’s impossible to cover all of these technologies and services. This chapter aims to cover only a small portion, and if you want to learn more, take this as a starting point.
 
-# Deploying to servers
+# Table of contents
+1. [Deploying to servers](#deploy-to-server)
+2. [Deploying to Google App Engine](#deploying-to-google-app-engine)
+3. [Deploy to Dokcer](#deploy-to-dokcer)
+4. [Comparison of deployment methods](#comparison-of-developement-methods)
+
+
+# Question
+## About deploying to servers
 * [What steps to deploy a Go web application to server?](#Steps)
 * [How to set up driver PostgreSQL for web-app?](#Set-up-PostgreSQL)
-# Deploying to Google App Engine
+## About deploying to Google App Engine
 
-# Deploy to Dokcer
+## About deploy to Dokcer
 * [What is Docker?](#What-is-Docker)
 * [What is Docker machine?](#Docker-machine)
 * [What is Digital Ocean?](#Digital-Ocean)
 * [Why once we push local Docker host to cloud-provider, we can't any images](#Develop-images)
 
-# Comparison of deployment methods
+## About comparison of deployment methods
 * [Compare the advantages in distinct servers methods? Part 10.5](#https://edu.anarcho-copy.org/Programming%20Languages/Go/Go%20Web%20Programming.pdf)
 
+# Getting Started
 ## Deploying to servers
 ### Steps
 Step to deploy a web app to server:
 * Create an executable binary and the running it off a server that's on the internet.
 * 
 
-### Getting Started
+### Set up environment
 #### Set-up-PostgreSQL
 Create a user named gwp.
 ```

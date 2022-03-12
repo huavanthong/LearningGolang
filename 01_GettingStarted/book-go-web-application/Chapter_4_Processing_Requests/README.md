@@ -313,8 +313,9 @@ Then:
 http://127.0.0.1:8080/get_cookie 
 ```
 ### Flash-message
-These transient messages are commonly known as **flash messages**
-**More detail:** [here](https://www.meisternote.com/app/note/k4YdJh40r5E0/4-4-4-using-cookies-for-flash-messages)
+These transient messages are commonly known as **flash messages**  
+**More detail:** [here](https://www.meisternote.com/app/note/k4YdJh40r5E0/4-4-4-using-cookies-for-flash-messages)  
+
 As you know the problem if you run API to get the cookie firstly, you can't find the cookie, and you want to show message to client “No message found.”. You have to do two thing:
 1. Create a cookie with the same name, but with MaxAge set to a negative number and an Expires value that’s in the past.
 2. Send the cookie to the browser with SetCookie.  
