@@ -11,6 +11,7 @@ This tutorial will help you answer question below:
 ## About Serving Go
 * [Firstlu, when you start to investigate feature in this chapter? Are you understanding about Architecture for Handling requests with Go server or not?](https://www.meisternote.com/app/note/B6NG-U69TSGK/3-2-serving-go)
 * [In a simple word, http.Server in Go is just a struct Configuration? Do you know this struct?](#the-server-struct-configuration)
+* [Could you get a example to configure your server on Golang?](#setting-configure-for-server)
 * [What method to protect the communication between client and server?](#serving-through-https)
 * [What process to handle a security communication?](#process-handle)
 * [What is SSL, TLS, and HTTPS?](#ssl-tls-and-https)
@@ -54,6 +55,14 @@ type Server struct {
 }
 ```
 
+#### Setting configure for server
+```
+	server := http.Server{
+		Addr:    "127.0.0.1:8080",
+		Handler: nil,
+	}
+```
+More details: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/configurable)
 ### Serving through HTTPS
 Most major websites use HTTPS to encrypt and protect the communications between the client and the server when confidential information like passwords and credit card information is shared.
 You need to make sure 
