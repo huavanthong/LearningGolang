@@ -3,6 +3,7 @@ This tutorial will help you answer question below:
 # Request
 * [You are ready to understand about Requests and Response?](#Request-Response)
 * [What is format for request-header in Golang?](#Format-request-header)
+* [How many methods we can use in Header Golang?](#methods-in-header)
 * [What is HTML form?](#HTML-Form)
 * [The important things when we use enctype ? And how to insert to HTML form?](#Enctype)
 * [What is ParseForm?](#ParseForm)
@@ -39,7 +40,7 @@ User-Agent: Mozilla/5.0
 ## Format-request-header
 A header is a map, with the key a string and the value a slice of strings.  
 Note: map is used as same as dictionary with key-value.  
-Get a example header from request.
+### Get all of member in Header
 ```
 func headers(w http.ResponseWriter, r *http.Request) {
    h := r.Header
@@ -61,6 +62,49 @@ map[
   User-Agent:[Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0]
 ]
 ```
+### Get a specific member of Header
+```
+h := r.Header["Accept-Encoding"]
+```
+Output
+```
+[gzip, deflate]
+```
+
+## Methods in Header
+There are four basic methods on Header, which allow you to add, delete, get, and set values, given a key.
+### Get by method
+```
+h := r.Header.Get("Accept-Encoding")
+```
+
+Output
+```
+gzip, deflate
+```
+### Set new member to Header
+```
+	r.Header.Set("Host", "domain.tld")
+	h := r.Header.Get("Host")
+	fmt.Fprintln(w, h)
+```
+
+Output
+```
+domain.tld
+```
+### Delete a member in Header
+```
+   r.Header.Del("Host")
+	h2 := r.Header.Get("Host")
+	fmt.Fprintln(w, h2, "Nothing we can get")
+```
+
+Output
+```
+ Nothing we can get
+```
+
 ## Formata request body
 Body field consists of a Reader interface and a Close interface.  
 * A Reader is an interface that has a Read method that takes in a slice of bytes and returns the number of bytes read and an optional error.  
