@@ -29,6 +29,7 @@ This tutorial will help you answer question below:
 
 ## About Using HTTP/2
 * [Why we need to use HTTP/2](#using-http2)
+* [What is cURL?Why we need it]()
 
 # Getting Started
 ## Serving Go
@@ -186,3 +187,28 @@ More details: [chain_handler](https://github.com/huavanthong/MasterGolang/tree/m
 
 
 ## Using HTTP/2
+
+
+## cURL
+* cURL is a command-line tool that allows users to get or send files through a URL. It supports a large number of common internet protocols, including HTTP and HTTPS.  
+* cURL is installed by default in many variants of Unix, including OS X, but is also available in Windows.
+Starting from version 7.43.0, cURL supports HTTP/2. You can perform a request using the HTTP/2 protocol passing the --http2 flag.
+
+### To download it
+> Refer: http://curl.haxx.se/download.html
+
+### To run it
+To run curl with https
+```
+curl -I --http2 --insecure https://localhost:8080/
+```
+**Note:** Remember, you need to run it against HTTPS. Because you created your own certificate and private key, by default c URL will not proceed as it will try to verify the certificate. To force cURL to accept your certificate, you need to set the insecure flag.  
+
+Output
+```
+HTTP/2.0 200
+content-type:text/plain; charset=utf-8
+content-length:12
+date:Mon, 15 Feb 2016 05:33:01 GMT
+```
+More details: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/https)
