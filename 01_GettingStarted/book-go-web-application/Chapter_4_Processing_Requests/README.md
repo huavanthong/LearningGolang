@@ -1,5 +1,10 @@
+# Introduction
 To get details contents, please refer to book go-web-application.  
 This tutorial will help you answer question below:
+
+# Table of contents
+
+# Questions
 # Request
 * [You are ready to understand about Requests and Response?](#Request-Response)
 * [What is format for request-header in Golang?](#Format-request-header)
@@ -61,7 +66,7 @@ map[
   User-Agent:[Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0]
 ]
 ```
-## Formata request body
+## Format request body
 Body field consists of a Reader interface and a Close interface.  
 * A Reader is an interface that has a Read method that takes in a slice of bytes and returns the number of bytes read and an optional error.  
 * A Closer is an interface that has a Close method, which takes in nothing and returns an optional error.  
@@ -74,6 +79,11 @@ func body(w http.ResponseWriter, r *http.Request) {
    fmt.Fprintln(w, string(body))
 }
 ```
+
+To run this example
+```
+curl -id "first_name=sausheong&last_name=chang" 127.0.0.1:8080/body
+```
 Output
 ```
 HTTP/1.1 200 OK
@@ -82,6 +92,7 @@ Content-Length: 37
 Content-Type: text/plain; charset=utf-8
 first_name=sausheong&last_name=chang
 ```
+More details: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_4_Processing_Requests/body)
 ## HTML-Form
 HTML form often look like this:
 ```
@@ -144,6 +155,7 @@ func process(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintln(w, r.Form["post"])
 }
 ```
+
 Output
 ```
 [456]
