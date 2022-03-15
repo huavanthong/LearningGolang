@@ -1,3 +1,4 @@
+// Reference: https://stackoverflow.com/questions/58736588/http-server-handlefunc-loop-on-timeout
 package main
 
 import (
@@ -14,7 +15,7 @@ var WriteTimeout = 1 * time.Second
 func main() {
 	router := http.NewServeMux()
 	server := &http.Server{
-		Addr:         ":8889",
+		Addr:         ":8080",
 		Handler:      router,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: WriteTimeout + 10*time.Millisecond, //10ms Redundant time

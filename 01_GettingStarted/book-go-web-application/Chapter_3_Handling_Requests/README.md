@@ -10,8 +10,11 @@ To get details contents, please refer to book go-web-application.
 This tutorial will help you answer question below:
 ## About Serving Go
 * [Firstlu, when you start to investigate feature in this chapter? Are you understanding about Architecture for Handling requests with Go server or not?](https://www.meisternote.com/app/note/B6NG-U69TSGK/3-2-serving-go)
+## About Server configuration
 * [In a simple word, http.Server in Go is just a struct Configuration? Do you know this struct?](#the-server-struct-configuration)
 * [Could you get a example to configure your server on Golang?](#setting-configure-for-server)
+* [How do you set timeout read/write on server using configuration?](#timeout-with-server-configuration)
+## About HTTPs
 * [What method to protect the communication between client and server?](#serving-through-https)
 * [What process to handle a security communication?](#process-handle)
 * [What is SSL, TLS, and HTTPS?](#ssl-tls-and-https)
@@ -63,6 +66,28 @@ type Server struct {
 	}
 ```
 More details: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/configurable)
+
+#### Timeout with server configuration
+Server configuration have some parameter help you set timeout on server.  
+You can set it following sample code below.
+```
+	server := &http.Server{
+		Addr:         ":8080",
+		Handler:      router,
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: WriteTimeout + 10*time.Millisecond, //10ms Redundant time
+		IdleTimeout:  15 * time.Second,
+	}
+```
+However, the question that you need to answer is how REST API, or handler function can use that timeout on server.  
+To understand deeply about it, you need to learn about Context. More details: [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter3/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/context_aware)  
+
+So, we can implement context in handler function following sample code.
+```
+	ctx, _ := context.WithTimeout(context.Background(), WriteTimeout)
+	worker, cancel := context.WithCancel(context.Background())
+```
+More details: [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter3/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/config_timeout)
 ### Serving through HTTPS
 Most major websites use HTTPS to encrypt and protect the communications between the client and the server when confidential information like passwords and credit card information is shared.
 You need to make sure 
