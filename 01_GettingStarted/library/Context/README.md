@@ -30,8 +30,7 @@ This parts will help you understand about using Context in Golang. Through that,
 * [When a context timeout? Do you know what happened in a process? How do you select the happened case?](#getting-started-context-timeout)
 * [What is diffrence between timeout in this, and timeout pattern in microservice?]()
 
-===========================================================================================================================================
-
+-------------------------------------------------------------------------------------------------------------
 ## Context with Value
 Context with value is a simple word - you can pass a value to context running in the backgroud, and another function can use it.
 

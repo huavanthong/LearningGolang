@@ -2,18 +2,24 @@
 Web services, as you’ll recall from our brief discussion in chapter 1, provide a service to other software programs. This chapter expands on this and shows how you can use Go to write or consume web services. You’ll learn how to create and parse XML and JSON first, because these are the most frequently used data formats with web services. We’ll also discuss SOAP and RESTful services before going through the steps for creating a simple web service in JSON.
 
 To get details contents, please refer to chapter 7 at book go-web-application. 
+
+# Table of content
+1. [Introducing web services](#introducing-web-services)
+
+# Questions
 This tutorial will help you answer question below:
-# 7.1 Introducing web services
+## About Introducing web services
 * [What is definition of web service in a Web Service Architecture?](#Definition)
 * [How many types of web services?](#Types-of-web-services)
 * [When do you use SOAP-based? or REST-based?](Purpose)
-# 7.2 Introducing SOAP-based web services
+## About Introducing SOAP-based web services
 * [How do you use SOAP-based in a simple project?](#Introducing-SOAP-based-web-services)
-# 7.3 Introducing REST-based web services
-# 7.4 Parsing and creating XML with Go
-# 7.5 Parsing and creating JSON with Go
-# 7.6 Creating Go web services
+## About Introducing REST-based web services
+## About Parsing and creating XML with Go
+## About Parsing and creating JSON with Go
+## About Creating Go web services
 
+-------------------------------------------------------------------------------------------------------------
 ## Introducing web services
 ### Definition
 ```

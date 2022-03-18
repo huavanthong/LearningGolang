@@ -44,6 +44,7 @@ This tutorial will help you answer question below:
 * [How way to list all users in PostgreSQL?](#list-user)
 # 6.5 Go relational mappers
 
+-------------------------------------------------------------------------------------------------------------
 ## In-memory-storage
 In-memory storage refers not to storing data in in-memory databases but in the running application itself, to be used while the application is running. In-memory data is usually stored in data structures, and for Go, this primarily means with arrays, slices, maps, and most importantly, structs.
 1. Design a Post struct that represents a post in a forum application.

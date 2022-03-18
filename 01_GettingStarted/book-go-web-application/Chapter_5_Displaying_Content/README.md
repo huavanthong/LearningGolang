@@ -45,7 +45,7 @@ This tutorial will help you answer question below:
 ## About using the block action to define default templates
 * [Why we need to use block-action for our application?](#Block-action)
 
-# Getting Started
+-------------------------------------------------------------------------------------------------------------
 ## Template-and-Template-Engine
 ### Parsing-templates
 To get a template in your working directory, please prepare:

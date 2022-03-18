@@ -38,8 +38,7 @@ This tutorial will help you answer question below:
 ## About Using HTTP/2
 * [Why we need to use HTTP/2](#using-http2)
 * [What is cURL?Why we need it]()
-
-====================================================================================================================================
+-------------------------------------------------------------------------------------------------------------
 ## Serving Go
 ### The Server struct configuration
 Configuration intergrate many features in this struct. It includes:

@@ -31,7 +31,7 @@ In this chapter, you’ll learn how to deploy to
 ## About comparison of deployment methods
 * [Compare the advantages in distinct servers methods? Part 10.5](#https://edu.anarcho-copy.org/Programming%20Languages/Go/Go%20Web%20Programming.pdf)
 
-# Getting Started
+-------------------------------------------------------------------------------------------------------------
 ## Deploying to servers
 ### Steps
 Step to deploy a web app to server:

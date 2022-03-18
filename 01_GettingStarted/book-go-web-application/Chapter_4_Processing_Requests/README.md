@@ -3,9 +3,15 @@ To get details contents, please refer to book go-web-application.
 This tutorial will help you answer question below:
 
 # Table of contents
+1. [Request Response](#request-response)
+2. [HTML Form](#html-form)
+3. [Enctype](#enctype)
+4. [ParseForm](#parseform)
+5. [PostForm](#postform)
+6. [ResponseWriter](#responsewriter)
 
 # Questions
-# Request
+## About Request
 * [You are ready to understand about Requests and Response?](#Request-Response)
 * [What is format for request-header in Golang?](#Format-request-header)
 * [How many methods we can use in Header Golang?](#methods-in-header)
@@ -15,17 +21,17 @@ This tutorial will help you answer question below:
 * [What is PostForm?](#PostForm)
 * [What is MultipartForm?](#MultipartForm)
 * [How to upload a file to brower, and handle on Golang](#Files)
-# Response
+## About Response
 * [What is ResponseWriter in Golang?](#ResponseWriter)
 * [How to write a example response to client](#Write)
-# Cookies
+## About Cookies
 * [What is Cookie? How cookie was created? Life cycle for cookie?](#Cookie)
 * [Could understand about struct Cookie in Go?](#Struct-cookie)
 * [How to send a cookie to the brower?](#Send-cookie)
 * [How to get a cookie from brower?](#Get-cookie)
 * [Why do we need to use cookie? What is Flash message? Get a example using cookie for flash message?](#Flash-message)
 
-
+-------------------------------------------------------------------------------------------------------------
 ## Request-Response
 Both requests and responses have basically the same structure:
 ```

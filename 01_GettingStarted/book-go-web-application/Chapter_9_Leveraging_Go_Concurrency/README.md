@@ -1,20 +1,25 @@
 # Introduction
-This tutorial will help you answer question below:
-
-# Goroutines
+This tutorial will help you understand abour concurrency in Golang
+# Table of Content
+1. [Goroutines](#goroutines)
+2. [Waiting for Goroutines](#waiting-for-goroutines)
+3. [Channels](#channels)
+# Question
+## About Goroutines
 * [How do you use goroutines in Golang?](#Goroutines)
 * [Why do you run printLetters1() case at using-goroutine, you don't see any output?](#Issue-1)
 * [Is that fair if TestGoPrint1 is set delay time 1s while TestPrint1 run quickly?](#Issue-2)
-# Waiting for Goroutines
+## About Waiting for Goroutines
 * [What purpose for waiting for goroutine?](#Waiting-for-goroutines)
 * [What is work-flow for using waitGroup?](#Work-flow-using-WaitGroup)
 * [What happens if you forget to decrement the counter in one of the goroutines?](#Issue-4)
-# Channels
+## About Channels
 * [How do you create a channel for goroutine?](#Usage)
 * [How do you create a buffered channel for goroutine?](#Usage)
 * [Thinks about the difference between a unbuffered channel (default) and a buffered channel?](#Usage)
 * [How do you create a channel directly?](#Usage)
  
+-------------------------------------------------------------------------------------------------------------
 
 ## Goroutines
 ### Using-goroutines
