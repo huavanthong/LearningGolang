@@ -45,9 +45,9 @@ func home(w http.ResponseWriter, r *http.Request) {
 		time.Sleep(2 * time.Second)
 		buffer = "ready all response\n"
 
-		// Step 6: We can do another thing at here, and it wast 10s for your second task.
+		// Step 6: We can do another thing at here, and it wast 2s for your second task.
 		//do another
-		time.Sleep(10 * time.Second)
+		time.Sleep(2 * time.Second)
 
 		fmt.Printf("Check 1\n")
 		cancel()
@@ -58,12 +58,19 @@ func home(w http.ResponseWriter, r *http.Request) {
 	//			1. when it will go into ctx.Done()
 	//			2. When it will go into worker.Done()
 	select {
+	// ctx.Done() is called when goroutine call cancel().
 	case <-ctx.Done():
 		//add more friendly tips
 		w.WriteHeader(http.StatusInternalServerError)
+
+		// Response immediately when cancel() is called.
+		// Note:
+		// 		Process keep running to the end.
 		t, _ := template.ParseFiles("layout.html")
 		t.Execute(w, "world 1")
 		return
+
+	// worker.Done() is called when timeout of context is finished
 	case <-worker.Done():
 		w.Write([]byte(buffer))
 		t, _ := template.ParseFiles("layout.html")

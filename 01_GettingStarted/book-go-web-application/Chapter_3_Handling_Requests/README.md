@@ -39,7 +39,7 @@ This tutorial will help you answer question below:
 * [Why we need to use HTTP/2](#using-http2)
 * [What is cURL?Why we need it]()
 
-###################################################################################################
+====================================================================================================================================
 ## Serving Go
 ### The Server struct configuration
 Configuration intergrate many features in this struct. It includes:
@@ -106,8 +106,8 @@ Based on the context package and timeout, we will design program with some featu
 - About server, it keep going to active until there task completely.
 ```
 To implement a design to response immediately. We follow steps:
-Step 1: We know that context with Timeout, will cancel the request if timeout is reached.
-		Therefore, we 
+Step 1: Implement a goroutine to call cancel() if request is coming.
+Step 2: Implement a select statement to recognize that if request is coming correctly, we return a response to server.
 ```
 To understand about this solution. Please refer here: [server_timeout_solution](https://github.com/huavanthong/MasterGolang/blob/feature/chapter3-timeout/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/config_timeout/server_timeout_solution.go)
 
