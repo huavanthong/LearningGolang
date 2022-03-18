@@ -12,8 +12,10 @@ This tutorial will help you answer question below:
 ## About Server configuration
 * [In a simple word, http.Server in Go is just a struct Configuration? Do you know this struct?](#the-server-struct-configuration)
 * [Could you get a example to configure your server on Golang?](#setting-configure-for-server)
+## About server timeout
 * [How do you set timeout read/write on server using configuration?](#timeout-with-server-configuration)
 * [Could you create a issue to waiting from server forever?](#issue-waiting-forever)
+* [COuld you design a program to return a immediated response?](#resolve-issue-waiting-forever)
 
 
 ## About HTTPs
@@ -37,7 +39,7 @@ This tutorial will help you answer question below:
 * [Why we need to use HTTP/2](#using-http2)
 * [What is cURL?Why we need it]()
 
-# Getting Started
+###################################################################################################
 ## Serving Go
 ### The Server struct configuration
 Configuration intergrate many features in this struct. It includes:
@@ -60,7 +62,7 @@ type Server struct {
 }
 ```
 
-#### Setting configure for server
+### Setting configure for server
 ```
 	server := http.Server{
 		Addr:    "127.0.0.1:8080",
@@ -69,7 +71,7 @@ type Server struct {
 ```
 More details: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/configurable)
 
-#### Timeout with server configuration
+## Timeout with server configuration
 Server configuration have some parameter help you set timeout on server.  
 You can set it following sample code below.
 ```
@@ -91,20 +93,29 @@ So, we can implement context in handler function following sample code.
 ```
 More details: [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter3/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/config_timeout)
 ### Issue waiting forever
-To understand about this issue.  
-
-Please refer here: [server_timeout_issue](https://github.com/huavanthong/MasterGolang/blob/feature/chapter3-timeout/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/config_timeout/server_timeout_issue.go)
+Based on the following idea to implement this issue
+```
+Step 1: Create server with writeResponse only 1s
+Step 2: Create a handler function to handle task greater 1s (example: time.sleep(5) // Sleep 5s)
+```
+To understand about this issue. Please refer here: [server_timeout_issue](https://github.com/huavanthong/MasterGolang/blob/feature/chapter3-timeout/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/config_timeout/server_timeout_issue.go)
 
 ### Resolve issue waiting forever
-To understand about this solution.  
+Based on the context package and timeout, we will design program with some features below:
+- When a income request to server, we want to immediately response to server.
+- About server, it keep going to active until there task completely.
+```
+To implement a design to response immediately. We follow steps:
+Step 1: We know that context with Timeout, will cancel the request if timeout is reached.
+		Therefore, we 
+```
+To understand about this solution. Please refer here: [server_timeout_solution](https://github.com/huavanthong/MasterGolang/blob/feature/chapter3-timeout/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/config_timeout/server_timeout_solution.go)
 
-Please refer here: [server_timeout_solution](https://github.com/huavanthong/MasterGolang/blob/feature/chapter3-timeout/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/config_timeout/server_timeout_solution.go)
 
-
-### Serving through HTTPS
+## Serving through HTTPS
 Most major websites use HTTPS to encrypt and protect the communications between the client and the server when confidential information like passwords and credit card information is shared.
 You need to make sure 
-#### Process handle
+### Process handle
 Let take a overrall about process to get more security. Please look this example.  
 Client log in a page in brower, request a confidential information like passwords, and credit card information.
     - This request need to be compliant with Payment Card Industry(PCI) Data Security Standard.
