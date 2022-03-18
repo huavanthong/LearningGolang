@@ -5,7 +5,6 @@ To get details contents, please refer to book go-web-application.
 1. [Serving Go](#serving-go)
 2. [Handlers and handler functions](#handlers-and-handler-functions)
 3. [Using HTTP/2](#using-http2)
-
 # Questions
 This tutorial will help you answer question below:
 ## About Serving Go
@@ -14,6 +13,9 @@ This tutorial will help you answer question below:
 * [In a simple word, http.Server in Go is just a struct Configuration? Do you know this struct?](#the-server-struct-configuration)
 * [Could you get a example to configure your server on Golang?](#setting-configure-for-server)
 * [How do you set timeout read/write on server using configuration?](#timeout-with-server-configuration)
+* [Could you create a issue to waiting from server forever?](#issue-waiting-forever)
+
+
 ## About HTTPs
 * [What method to protect the communication between client and server?](#serving-through-https)
 * [What process to handle a security communication?](#process-handle)
@@ -80,7 +82,7 @@ You can set it following sample code below.
 	}
 ```
 However, the question that you need to answer is how REST API, or handler function can use that timeout on server.  
-To understand deeply about it, you need to learn about Context. More details: [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter3/01_GettingStarted/book-go-web-application/Chapter_5_Displaying_Content/context_aware)  
+To understand deeply about it, you need to learn about Context. More details: [here](https://www.meisternote.com/app/note/20mo3LrNH_Oz/context)  
 
 So, we can implement context in handler function following sample code.
 ```
@@ -88,6 +90,17 @@ So, we can implement context in handler function following sample code.
 	worker, cancel := context.WithCancel(context.Background())
 ```
 More details: [here](https://github.com/huavanthong/MasterGolang/tree/feature/chapter3/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/config_timeout)
+### Issue waiting forever
+To understand about this issue.  
+
+Please refer here: [server_timeout_issue](https://github.com/huavanthong/MasterGolang/blob/feature/chapter3-timeout/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/config_timeout/server_timeout_issue.go)
+
+### Resolve issue waiting forever
+To understand about this solution.  
+
+Please refer here: [server_timeout_solution](https://github.com/huavanthong/MasterGolang/blob/feature/chapter3-timeout/01_GettingStarted/book-go-web-application/Chapter_3_Handling_Requests/config_timeout/server_timeout_solution.go)
+
+
 ### Serving through HTTPS
 Most major websites use HTTPS to encrypt and protect the communications between the client and the server when confidential information like passwords and credit card information is shared.
 You need to make sure 
