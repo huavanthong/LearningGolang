@@ -29,6 +29,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("responding\n")
 	ctx, _ := context.WithTimeout(context.Background(), WriteTimeout)
 	worker, cancel := context.WithCancel(context.Background())
+
 	var buffer string
 	go func() {
 		// do something
@@ -43,9 +44,13 @@ func home(w http.ResponseWriter, r *http.Request) {
 	case <-ctx.Done():
 		//add more friendly tips
 		w.WriteHeader(http.StatusInternalServerError)
+		t, _ := template.ParseFiles("layout.html")
+		t.Execute(w, "world 1")
 		return
 	case <-worker.Done():
 		w.Write([]byte(buffer))
+		t, _ := template.ParseFiles("layout.html")
+		t.Execute(w, "world 2")
 		fmt.Printf("writed\n")
 		return
 	}
