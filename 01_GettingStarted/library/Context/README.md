@@ -9,18 +9,25 @@ This parts will help you understand about using Context in Golang. Through that,
 5. [gRPC](#grpc)
 6. [OpenTelemetry](#opentelemetry)
 
+### Reference:
+- Context usage: [here](https://dev.to/gopher/getting-started-with-go-context-l7g)
+- Overview about work-flow in context: [here](https://www.sohamkamani.com/golang/context-cancellation-and-values/)
+- Understand deeply about pipeline in Context: [here](https://go.dev/blog/pipelines)
+
 # Questions
 ## About Context with Value
 * [What is context with value](#context-with-value)
 * [Why we use context with value in golang? Could you think what feature we can apply it?](#purpose-using-context-with-value)
 * [Getting started context with value]()
 ## About Middleware
-
+* [What is middleware?](#middleware)
+* [Why the middleware can understand some processing running in the backgroud?](#middleware)
+* [Do you have any idea for implementing it in middleware?](#idea-for-usage-of-context-in-middleware)
 ## About Context Cancellation
 
 ## About Context Timeout 
 * [What is Timeout in Context](#context-timeout)
-* [When a context timeout? Do you know what happened in a process?]
+* [When a context timeout? Do you know what happened in a process? How do you select the happened case?](#getting-started-context-timeout)
 
 ## About gRPC
 
@@ -64,7 +71,28 @@ test-value
 More details: [here](https://github.com/huavanthong/MasterGolang/blob/feature/context/01_GettingStarted/library/Context/context-with-value.go)
 
 ## Middleware
-
+A great example and use case for request scoped values is working with middlewares in web request handlers. 
+**Importance**:
+- The type <http.Request> contains a context which can carry scoped values throughout the HTTP pipeline.
+- It is very common to see code where middlewares are added to the HTTP pipeline and the results of the middlewares are added to the <http.Request> context. 
+- This is a very useful technique as you can rely on something you know happened to in your pipeline already on later stages.
+### Idea for usage of context in Middleware
+```
+Step 1: we can design a common key using entire program, and we add this key to context in backgroud.
+Step 2: For other handler functions, we can get out this key, and using in common purpose.
+```
+### Getting Started with Middleware
+Set a uuid at common function
+```
+    uuid := uuid.New()
+    r = r.WithContext(context.WithValue(r.Context(), "uuid", uuid))
+```
+In another handler, we get out this key.
+```
+    uuid := r.Context().Value("uuid")
+    log.Printf("[%v] Returning 200 - Healthy", uuid)
+```
+More details: [here](https://github.com/huavanthong/MasterGolang/blob/feature/context/01_GettingStarted/library/Context/middleware.go)
 ## Context Cancellation
 
 ## Context Timeout
