@@ -33,7 +33,7 @@ func main() {
 
 	for n := range gen(ctx) {
 		fmt.Println(n)
-		if n == 5 {
+		if n == 100 {
 			break
 		}
 	}

@@ -6,8 +6,6 @@ This parts will help you understand about using Context in Golang. Through that,
 2. [Middleware](#middleware)
 3. [Context Cancellation](#context-cancellation)
 4. [Context Timeout](#context-timeout)
-5. [gRPC](#grpc)
-6. [OpenTelemetry](#opentelemetry)
 
 ### Reference:
 - Context usage: [here](https://dev.to/gopher/getting-started-with-go-context-l7g)
@@ -24,16 +22,15 @@ This parts will help you understand about using Context in Golang. Through that,
 * [Why the middleware can understand some processing running in the backgroud?](#middleware)
 * [Do you have any idea for implementing it in middleware?](#idea-for-usage-of-context-in-middleware)
 ## About Context Cancellation
+* [What is Context Cancellation?](#context-cancellation)
+* [What purpose for using cancellation?](#getting-started-context-cancellation)
 
 ## About Context Timeout 
 * [What is Timeout in Context](#context-timeout)
 * [When a context timeout? Do you know what happened in a process? How do you select the happened case?](#getting-started-context-timeout)
+* [What is diffrence between timeout in this, and timeout pattern in microservice?]()
 
-## About gRPC
-
-## About OpenTelemetry
-
-###########################################################################################
+===========================================================================================================================================
 
 ## Context with Value
 Context with value is a simple word - you can pass a value to context running in the backgroud, and another function can use it.
@@ -87,6 +84,7 @@ Set a uuid at common function
     uuid := uuid.New()
     r = r.WithContext(context.WithValue(r.Context(), "uuid", uuid))
 ```
+
 In another handler, we get out this key.
 ```
     uuid := r.Context().Value("uuid")
@@ -94,7 +92,28 @@ In another handler, we get out this key.
 ```
 More details: [here](https://github.com/huavanthong/MasterGolang/blob/feature/context/01_GettingStarted/library/Context/middleware.go)
 ## Context Cancellation
+Another very useful feature of context in golang is cancelling things that are related. This is very important when you want to propagate your cancellation. It’s a good practice to propagate the cancellation signal when you receive one. Let’s say you have a function where you start tens of goroutines. That main function waits for all goroutines to finish or a cancellation signal before proceeding. If you receive the cancellation signal you may want to propagate it to all your goroutines, so you don’t waste compute resources. If you share the same context among all goroutines you can easily do that.
+* In a simple, we cancel() happened, we want all goroutines are running must be stopped.
+### Ideas when using Context Cancellation
+- We want to get a high performance. We want it run faster.
+- The questions put out that how we can do it?
+===> Yes, we can do it if you use a cancellation smarted
+### Getting Started Context Cancellation
+If you want to call a function to get a value faster, we can use WithCancel().
+```
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel() // cancel when we are finished consuming integers
 
+	for n := range gen(ctx) {
+		fmt.Println(n)
+		if n == 100 {
+			break
+		}
+	}
+```
+More details: [here](https://github.com/huavanthong/MasterGolang/blob/feature/context/01_GettingStarted/library/Context/withCancel.go)
+- [example2](https://github.com/huavanthong/MasterGolang/blob/feature/context/01_GettingStarted/library/Context/context-cancellation.go))
+- To understand it deeply: [here](https://www.meisternote.com/app/note/p2AEeT5NTyfp/context-cancellation)
 ## Context Timeout
 Context timeout is a simple word - you can set a timeout running in the backgroud, if time is expired, it will end this process using this context.
 
@@ -128,6 +147,3 @@ Note:
         + Output: prints "overslept"
 ```
 More details: [here](https://github.com/huavanthong/MasterGolang/blob/feature/context/01_GettingStarted/library/Context/withTimeout.go)
-## gRPC
-
-## OpenTelemetry
