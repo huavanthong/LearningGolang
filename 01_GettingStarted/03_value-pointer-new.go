@@ -26,9 +26,22 @@ func main() {
 	fmt.Printf("Struct Pointer: Check address %p\n", ptr_test)
 
 	fmt.Println("==== Method 3: Initialize a structure ====")
+
 	student := Student{}
-	fmt.Printf("Struct Pointer: Check value %d\n", student.Id)
-	fmt.Printf("Struct Pointer: Check address %p\n", &student)
+	fmt.Printf("Initialize empty struct: Check value %d\n", student.Id)
+	fmt.Printf("Initialize empty struct: Check value %s\n", student.Name)
+	fmt.Printf("Initialize empty struct: Check value %s\n", student.Subject)
+	fmt.Printf("Initialize empty struct: Check address %p\n", &student)
+
+	studentData := Student{
+		Id:      2,
+		Name:    "giaolinh",
+		Subject: "social",
+	}
+	fmt.Printf("Initialize struct with data: Check Id: %d\n", studentData.Id)
+	fmt.Printf("Initialize struct with data: Check Name: %s\n", studentData.Name)
+	fmt.Printf("Initialize struct with data: Check Subject: %s\n", studentData.Subject)
+	fmt.Printf("Initialize struct with data: Check address: %p\n", &studentData)
 
 	fmt.Println("==== Method 2: Create structure pointer ====")
 	var ptr_student *Student = &student
