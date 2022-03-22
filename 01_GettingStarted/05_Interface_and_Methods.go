@@ -96,14 +96,19 @@ func main() {
 	var circle Circle = Circle{4.0}
 	fmt.Printf("Circle Type = %T\n", circle)
 	fmt.Printf("Area = %f, Perimeter = %f, Diameter = %f\n\n", circle.Area(), circle.Perimeter(), circle.Diameter())
+	circle.show()
 
 	var s Shape = Circle{5.0}
 	fmt.Printf("Shape Type = %T, Shape Value = %v\n", s, s)
 	fmt.Printf("Area = %f, Perimeter = %f\n\n", s.Area(), s.Perimeter())
+	// We can't use show() for Shape
+	// s.show()
 
 	s = Rectangle{4.0, 6.0}
 	fmt.Printf("Shape Type = %T, Shape Value = %v\n", s, s)
 	fmt.Printf("Area = %f, Perimeter = %f\n", s.Area(), s.Perimeter())
+	// We can't use show() for Shape was converted to Rectangle
+	// s.show()
 
 	totalArea := CalculateTotalArea(Circle{2}, Rectangle{4, 5}, Circle{10})
 	fmt.Println("Total area = ", totalArea)
@@ -114,4 +119,5 @@ func main() {
 	rect.setWidth(12)
 	fmt.Printf("Rect Type = %T, Rhape Value = %v\n", rect, rect)
 	fmt.Printf("Area = %f, Perimeter = %f\n", rect.Area(), rect.Perimeter())
+	rect.show()
 }
