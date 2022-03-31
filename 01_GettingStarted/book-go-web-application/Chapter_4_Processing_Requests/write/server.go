@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -25,7 +25,15 @@ func writeHeaderExample(w http.ResponseWriter, r *http.Request) {
 }
 
 func headerExample(w http.ResponseWriter, r *http.Request) {
+	// Note: Header in request and response is different.
+	h := r.Header
+	fmt.Println(h)
+
 	w.Header().Set("Location", "http://google.com")
+
+	fmt.Println("After set location")
+	fmt.Println(w.Header())
+
 	w.WriteHeader(302)
 }
 

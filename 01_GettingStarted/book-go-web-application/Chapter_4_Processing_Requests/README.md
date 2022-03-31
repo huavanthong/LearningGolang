@@ -265,19 +265,23 @@ The ResponseWriter interface has three methods:
 ### Write
 Write method takes in an array of bytes, and this gets written into the body of the HTTP response. 
 If the header doesn’t have a content type by the time Write is called,the first 512 bytes of the data are used to detect the content type. 
-```
+```go
 func writeExample(w http.ResponseWriter, r *http.Request) {
     str := `
       <html>
          <head><title>Go Web Programming</title></head>
          <body><h1>Hello World</h1></body>
       </html>`
-    w.Write([]byte(str))
+    w.Write([]byte(str)) // ================> string is array of bytes, so we write >>> []byte(str)
 }
 ```
+
+Output:  
+![image](https://user-images.githubusercontent.com/50081052/161079822-ecce72ef-e980-4ef1-9bb7-e7455995e66d.png)
+
 ### WriteHeader
 The WriteHeader method is pretty useful if you want to return error codes. Let’s say you’re writing an API and though you defined the interface, you haven’t fleshed it out, so you want to return a 501 Not Implemented status code.  
-```
+```go
 func writeHeaderExample(w http.ResponseWriter, r *http.Request) {
     w.WriteHeader(501)
     fmt.Fprintln(w, "No such service, try next door")
@@ -312,7 +316,35 @@ Date: Tue, 13 Jan 2015 16:22:16 GMT
 Content-Length: 0
 Content-Type: text/plain; charset=utf-8
 ```
+#### Example 2
+```go
+func main() {
+    r := mux.NewRouter()
+    r.HandleFunc("/save", saveHandler)
+    http.Handle("/", &MyServer{r})
+    http.ListenAndServe(":8080", nil);
 
+}
+
+type MyServer struct {
+    r *mux.Router
+}
+
+func (s *MyServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
+    if origin := req.Header.Get("Origin"); origin != "" {
+        rw.Header().Set("Access-Control-Allow-Origin", origin)
+        rw.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+        rw.Header().Set("Access-Control-Allow-Headers",
+            "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+    }
+    // Stop here if its Preflighted OPTIONS request
+    if req.Method == "OPTIONS" {
+        return
+    }
+    // Lets Gorilla work
+    s.r.ServeHTTP(rw, req)
+}
+```
 ## Cookie
 Please remember some feature below to understand about Cookie: 
 1. Cookie là một phần thông tin nhỏ được lưu tại client - brower.
