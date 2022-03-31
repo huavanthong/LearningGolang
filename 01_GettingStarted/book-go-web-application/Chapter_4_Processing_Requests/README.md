@@ -52,7 +52,7 @@ User-Agent: Mozilla/5.0
 A header is a map, with the key a string and the value a slice of strings.  
 Note: map is used as same as dictionary with key-value.  
 ### Get all of member in Header
-```
+```go
 func headers(w http.ResponseWriter, r *http.Request) {
    h := r.Header
    fmt.Fprintln(w, h)
@@ -74,7 +74,7 @@ map[
 ]
 ```
 ### Get a specific member of Header
-```
+```go
 h := r.Header["Accept-Encoding"]
 ```
 Output
@@ -85,7 +85,7 @@ Output
 ## Methods in Header
 There are four basic methods on Header, which allow you to add, delete, get, and set values, given a key.
 ### Get by method
-```
+```go
 h := r.Header.Get("Accept-Encoding")
 ```
 
@@ -94,7 +94,7 @@ Output
 gzip, deflate
 ```
 ### Set new member to Header
-```
+```go
 	r.Header.Set("Host", "domain.tld")
 	h := r.Header.Get("Host")
 	fmt.Fprintln(w, h)
@@ -105,7 +105,7 @@ Output
 domain.tld
 ```
 ### Delete a member in Header
-```
+```go
    r.Header.Del("Host")
 	h2 := r.Header.Get("Host")
 	fmt.Fprintln(w, h2, "Nothing we can get")
@@ -121,7 +121,7 @@ Body field consists of a Reader interface and a Close interface.
 * A Reader is an interface that has a Read method that takes in a slice of bytes and returns the number of bytes read and an optional error.  
 * A Closer is an interface that has a Close method, which takes in nothing and returns an optional error.  
 Get a example body
-```
+```go
 func body(w http.ResponseWriter, r *http.Request) {
    len := r.ContentLength
    body := make([]byte, len)
@@ -145,7 +145,7 @@ first_name=sausheong&last_name=chang
 More details: [here](https://github.com/huavanthong/MasterGolang/tree/main/01_GettingStarted/book-go-web-application/Chapter_4_Processing_Requests/body)
 ## HTML-Form
 HTML form often look like this:
-```
+```html
 <form action="/process" method="post">
    <input type="text" name="first_name"/>
    <input type="text" name="last_name"/>
@@ -155,7 +155,7 @@ HTML form often look like this:
 We can specific POST request with content type of HTML form by using Enctype.
 ## Enctype
 Using enctype for content type request looks like this:
-```
+```html
 <form action="/process" method="post" enctype="application/x-www-
 ➥ form-urlencoded">
    <input type="text" name="first_name"/>
@@ -167,14 +167,14 @@ Using enctype for content type request looks like this:
 ## ParseForm
 Have you ever put a question about element input in HTML form. How we can get this data above, such as: first_name-value? 
 That exactly we need ParseForm to do it.
-```
+```go
 func process(w http.ResponseWriter, r *http.Request) {
    r.ParseForm()
    fmt.Fprintln(w, r.Form)
 }
 ```
 Suppose we implement html form as below:
-```
+```html
 <form action=http://127.0.0.1:8080/process?hello=world&thread=123 ➥ method="post" enctype="application/x-www-form-urlencoded">
       <input type="text" name="hello" value="sau sheong"/>
       <input type="text" name="post" value="456"/>
@@ -199,7 +199,7 @@ Our action, we submit a POST request with:
 * first_name = sau sheong
 * post = 456
 How we can get only post value ==> We can get value by key "post"
-```
+```go
 func process(w http.ResponseWriter, r *http.Request) {
     r.ParseForm()
     fmt.Fprintln(w, r.Form["post"])
@@ -357,7 +357,7 @@ Please refer package cookie: [here](https://go.dev/src/net/http/cookie.go)
 
 ### Send-cookie
 We use setCookie() methods to send cookie from server to client.
-```
+```go
 func setCookie(w http.ResponseWriter, r *http.Request) {
 	c1 := http.Cookie{
 		Name:     "first_cookie",
@@ -380,14 +380,14 @@ http://127.0.0.1:8080/set_cookie
 ```
 ### Get-cookie
 To get all names-value in cookie:
-```
+```go
 func getCookie(w http.ResponseWriter, r *http.Request) {
    h := r.Header["Cookie"]
    fmt.Fprintln(w, h)
 }
 ```
 To get a specific name-value:
-```
+```go
 func getCookie(w http.ResponseWriter, r *http.Request) {
    c1, err := r.Cookie("first_cookie")
    if err != nil {
@@ -414,7 +414,7 @@ As you know the problem if you run API to get the cookie firstly, you can't find
 1. Create a cookie with the same name, but with MaxAge set to a negative number and an Expires value that’s in the past.
 2. Send the cookie to the browser with SetCookie.  
 To send message to client, and encode message to hide info.
-```
+```go
 func setMessage(w http.ResponseWriter, r *http.Request) {
 	msg := []byte("Hello World!")
 	c := http.Cookie{
@@ -427,7 +427,7 @@ func setMessage(w http.ResponseWriter, r *http.Request) {
 Then, we receive messsage: 
 - is null, notifiy error
 - not null, decode message from client.
-```
+```go
 func showMessage(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("flash")
 	if err != nil {
