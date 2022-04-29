@@ -5,6 +5,17 @@ import "fmt"
 
 /*
 *****************************************************************************
+Define a data-type is a structure
+*****************************************************************************
+*/
+type Description struct {
+	ID                int
+	Name              string
+	DescriptionDetail string
+}
+
+/*
+*****************************************************************************
 desribe() function have an argunment as a empty interface
 *****************************************************************************
 */
@@ -29,4 +40,11 @@ func main() {
 
 	i = "hello"
 	describe(i)
+
+	d := Description{
+		ID:                1,
+		Name:              "hvthong",
+		DescriptionDetail: "Try to test Interface with struct data-type",
+	}
+	describe(d)
 }
