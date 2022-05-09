@@ -1,27 +1,56 @@
 This is the example repository for [this blog post](https://tutorialedge.net/golang/go-docker-tutorial/)
-
+# Table of Contents
+* To get help from terminal [here](#docker-help)
+* To build image .[here](#build-image)
+* To run image. [here](#run-image)
+* To login your docker. [here](#please-login-your-docker)
+* To test image. [here](#test-image)
+* To execute command on the contaner. [here](#execute-image)
+* To install bash for a image. [here](#install-bash)
+* To check all images on docker. [here](#check-image)
+* To check all containers on docker. [here](#check-container)
+* To check all volumne on docker. [here](#check-volumne)
+* To remove a images on docker. [here](#remove-images)
+* Summary issue knowledege. [here](#issue-knowledge)
 
 ## Setup  
-### Build and run image
+### Docker help
 To get help from docker
 ```
-$docker --help
+docker --help
+docker build --help
+docker run --help
+docker exec --help
 ```
-
+### Build image
 To build docker image on window. Open CMD and enter:
 ```
-$docker build -t my-go-app .
+docker build -t my-go-app .
 ```
 **Note:**
 - If you build a image successfully, you can see image on Docker Desktopn in Windows.  
 
+### Run image
 To run image and pass in the porst we want to map to and the image we wish to run.
 When you run this -p option, means that we're gonna bins a port on my machine to a port within the docker application.
 Therefore, this command below show you: port 8080 on your machine is gonna map to port 8081 inside.
 So if you hit localhost 8080 on brower, it's actually going to route that to port 8081 inside the specific container. 
 ```
-$docker run -p 8080:8081 -it my-go-app
+docker run -p 8080:8081 -it my-go-app
 ```
+**Note:** 
+- If you meet error below
+```
+docker: Error response from daemon: pull access denied for my-go-ap, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.   
+See 'docker run --help'.
+```
+### Please login your docker
+```
+> docker login
+Authenticating with existing credentials...
+Login Succeede
+```
+### Test image
 To check the result:
 ```
 Open brower:  
@@ -31,11 +60,34 @@ Command line:
 $curl http://localhost:8080/
 
 ```
+### Execute image
+To execute an interactive bash shell on the container.
+```
+## docker exec -it [ContainerID/ContainerName] bash
+docker exec -it laughing_shamir bash
+```
+
+or execute by ContainerID
+```
+# Get container name or container id
+docker container ls
+docker ps -a
+
+# Join bash schell on the container
+docker exec -it 413fcf9b8a75 bash
+```
+More details: [here](https://docs.docker.com/engine/reference/commandline/exec/)
+### Install bash
+```Dockerfile
+## install bash for our container
+RUN apk update && apk add bash
+```
 ### Check image
 To verify that our image exists on our machine 
 ```
-$docker images my-go-app
+docker images my-go-app
 ```
+
 To check list of the existence images on docker.
 ```
 $docker images 
@@ -49,6 +101,7 @@ $docker container ls
 CONTAINER ID   IMAGE                                 COMMAND                  CREATED          STATUS          PORTS                NAMES
 95700e0f6884   my-go-app:latest                      "/app/main"              26 minutes ago   Up 26 minutes                        nervous_colden
 ```
+
 To check all container running on all images
 ```
 $docker ps -a
