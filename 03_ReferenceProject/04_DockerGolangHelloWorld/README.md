@@ -11,6 +11,7 @@ This is the example repository for [this blog post](https://tutorialedge.net/gol
 * To check all containers on docker. [here](#check-container)
 * To check all volumne on docker. [here](#check-volumne)
 * To remove a images on docker. [here](#remove-images)
+* To remove a container on image. [here](#remove-container)
 * Summary issue knowledege. [here](#issue-knowledge)
 
 ## Setup  
@@ -130,7 +131,7 @@ To remove volumne on docker
 $docker volume rm volume_name volume_name
 ```
   
-### Remove images
+### Remove container
 To stop container on images
 ```
 $docker stop 95700e0f6884
@@ -139,6 +140,7 @@ To remove container in images
 ```
 $docker rm 95700e0f6884
 ```
+### Remove images
 To remove image on docker
 ```
 $docker rmi my-go-app
