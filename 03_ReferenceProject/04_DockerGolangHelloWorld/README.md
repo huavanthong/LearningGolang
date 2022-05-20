@@ -140,6 +140,17 @@ To remove container in images
 ```
 $docker rm 95700e0f6884
 ```
+#### Stop and remove all containers.
+To stop all containers
+```bash
+docker container stop $(docker container ls -aq)
+```
+
+To remove all containers
+```bash
+docker container rm $(docker container ls -aq)
+```
+More details: [here](https://linuxize.com/post/how-to-remove-docker-images-containers-volumes-and-networks/)
 ### Remove images
 To remove image on docker
 ```
