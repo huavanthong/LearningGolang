@@ -23,10 +23,12 @@ Generate document by swagger.
 
 * **Windows:**
 ```
-.\swagger.bat init -g ginsimple/main.go --output docs/ginsimple
+???????????
 ```
 
 * **Linux:**
 ```
 swag init -g ginsimple/main.go --output docs/ginsimple
 ```
+
+##

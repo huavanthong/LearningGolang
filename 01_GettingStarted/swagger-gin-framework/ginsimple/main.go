@@ -5,10 +5,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/rizalgowandy/go-swag-sample/docs/ginsimple" // you need to update github.com/rizalgowandy/go-swag-sample with your own project path
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // @title Gin Swagger Example API
-// @version 1.0
+// @version 2.0
 // @description This is a sample server server.
 // @termsOfService http://swagger.io/terms/
 
@@ -28,6 +31,9 @@ func main() {
 
 	// Routes
 	r.GET("/", HealthCheck)
+
+	url := ginSwagger.URL("http://localhost:3000/swagger/doc.json") // The url pointing to API definition
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
 	// Start server
 	if err := r.Run(":3000"); err != nil {
