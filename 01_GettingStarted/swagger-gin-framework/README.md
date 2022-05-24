@@ -18,7 +18,7 @@ go get -v github.com/swaggo/swag/cmd/swag
 go get -v github.com/swaggo/gin-swagger
 go get -v github.com/swaggo/files
 ```
-### Generate
+### Generate document
 Generate document by swagger.
 
 * **Windows:**
@@ -31,4 +31,8 @@ Generate document by swagger.
 swag init -g ginsimple/main.go --output docs/ginsimple
 ```
 
-##
+### Open SwaggerUI
+Open
+```
+http://localhost:3000/swagger/index.html
+```
