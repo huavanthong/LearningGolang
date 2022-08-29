@@ -101,22 +101,22 @@ func CalculateTotalArea(shapes ...Shape) float64 {
 /*************************************************************************************************/
 var database map[string]interface{}
 
-func init() {
-	database = make(map[string]interface{})
+// func init() {
+// 	database = make(map[string]interface{})
 
-	circle := make(Circle)
+// 	circle := make(Circle)
 
-	database["circle"] = circle
+// 	database["circle"] = circle
 
-	rectangle := make(Rectangle)
+// 	rectangle := make(Rectangle)
 
-	database["rectangle"] = rectangle
-}
+// 	database["rectangle"] = rectangle
+// }
 func main() {
 
-	circle := returnModels("circle")
-	circle.setRadius(4.0)
-	// var circle Circle = Circle{shape: shape{"test"}, Radius: 4.0}
+	// circle := returnModels("circle")
+	// circle.setRadius(4.0)
+	var circle Circle = Circle{shape: shape{"test"}, Radius: 4.0}
 
 	fmt.Printf("Circle Type = %T\n", circle.shape.types)
 	fmt.Printf("Circle Type = %s\n", circle.shape.types)
@@ -149,6 +149,24 @@ func main() {
 	fmt.Printf("Rect Type = %T, Rhape Value = %v\n", rect, rect)
 	fmt.Printf("Area = %f, Perimeter = %f\n", rect.Area(), rect.Perimeter())
 	rect.show()
+
+	example2()
+}
+
+func example2() {
+
+	var circle Circle = Circle{shape: shape{"test"}, Radius: 4.0}
+
+	s := Shape(circle)
+	fmt.Println("#################################")
+	fmt.Println("Example2 : ", s.Area())
+
+	fmt.Println("#################################")
+
+	cptr, _ := s.(Circle)
+	cptr.setRadius(10)
+	fmt.Println("Example3 : ", cptr.Area())
+
 }
 
 func returnModels(modelName string) interface{} {
