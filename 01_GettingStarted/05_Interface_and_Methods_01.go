@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"reflect"
 )
 
 /*************************************************************************************************/
@@ -24,6 +25,13 @@ type Shape interface {
 // Struct type `Rectangle` - implements the `Shape` interface by implementing all its methods.
 type Rectangle struct {
 	Length, Width float64
+}
+
+func NewRectangle() Shape {
+	return &Rectangle{
+		Length: 0,
+		Width:  0,
+	}
 }
 
 /********* Methods inherit *********/
@@ -60,6 +68,13 @@ func (r Rectangle) show() {
 type Circle struct {
 	shape
 	Radius float64
+}
+
+func NewCircle() Shape {
+	return &Circle{
+		shape:  shape{types: "Circle init"},
+		Radius: 0,
+	}
 }
 
 /********* Methods inherit *********/
@@ -112,6 +127,7 @@ var database map[string]interface{}
 
 // 	database["rectangle"] = rectangle
 // }
+
 func main() {
 
 	// circle := returnModels("circle")
@@ -151,21 +167,61 @@ func main() {
 	rect.show()
 
 	example2()
+	example3()
 }
 
 func example2() {
 
+	fmt.Println("################  Example 2 #################")
+
 	var circle Circle = Circle{shape: shape{"test"}, Radius: 4.0}
+
+	fmt.Printf("Circle Type = %T, Shape Value = %v\n", circle, circle)
+	fmt.Println("Type of circle using reflect = ", reflect.TypeOf(circle))
+	fmt.Println("Kind of Type using reflect = ", reflect.ValueOf(circle).Kind())
 
 	s := Shape(circle)
 	fmt.Println("#################################")
+	fmt.Printf("Casting to Shape Type = %T, Shape Value = %v\n", s, s)
+
 	fmt.Println("Example2 : ", s.Area())
 
 	fmt.Println("#################################")
 
 	cptr, _ := s.(Circle)
+
+	fmt.Printf("Casting to Circle Type = %T, Shape Value = %v\n", cptr, cptr)
+
 	cptr.setRadius(10)
 	fmt.Println("Example3 : ", cptr.Area())
+
+}
+
+func GetProductType(stype string) (Shape, error) {
+
+	switch stype {
+	case "circle":
+		return NewCircle(), nil
+	case "rectangle":
+		return NewRectangle(), nil
+	default:
+		return nil, fmt.Errorf("Wrong shape type passed")
+	}
+}
+
+func example3() {
+
+	fmt.Println("################  Example 3 #################")
+
+	rect, _ := GetProductType("rectangle")
+	fmt.Printf("Circle Type = %T, Shape Value = %v\n", rect, rect)
+	var r *Rectangle
+	r = rect.(*Rectangle)
+	fmt.Printf("After change to Rectangle: Type = %T, Rectangle Value = %v\n", r, r)
+
+	r.setLength(10)
+	r.setWidth(12)
+	r.show()
 
 }
 
