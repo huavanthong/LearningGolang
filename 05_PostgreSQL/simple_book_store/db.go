@@ -8,10 +8,14 @@ import (
 )
 
 func Init() *gorm.DB {
-	dbURL := "postgres://pg:pass@localhost:5432/crud"
+	// dbURL := "postgres://pg:pass@localhost:5432/crud"
 
-	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
+	// db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 
+	db, err := gorm.Open(postgres.New(postgres.Config{
+		DSN:                  "user=pg password=pass dbname=crud port=5432 sslmode=disable",
+		PreferSimpleProtocol: true, // disables implicit prepared statement usage
+	}), &gorm.Config{})
 	if err != nil {
 		log.Fatalln(err)
 	}
