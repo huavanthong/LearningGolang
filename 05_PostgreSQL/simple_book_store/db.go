@@ -13,7 +13,7 @@ func Init() *gorm.DB {
 	// db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 
 	db, err := gorm.Open(postgres.New(postgres.Config{
-		DSN:                  "user=pg password=pass dbname=crud port=5432 sslmode=disable",
+		DSN:                  "user=root password=root dbname=test_db port=5432 sslmode=disable",
 		PreferSimpleProtocol: true, // disables implicit prepared statement usage
 	}), &gorm.Config{})
 	if err != nil {
