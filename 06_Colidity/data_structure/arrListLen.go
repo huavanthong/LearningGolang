@@ -1,13 +1,22 @@
 /*
-
-Case 1: 	max = 4 ===> A.length = 5  	==> Result = 4
-Case 2: 	max = 4 ===> A.length = 10  ==> Result = 9
-Case 3: 	max = 4 ===> A.length = 5  	==> Result = 4
-Case 4:		max = 4 ===> A.length = 5  	==> Result = 4
-Case 5: 	max = 4 ===> A.length = 5  	==> Result = 4
-Case 6: 	max = 4 ===> A.length = 5  	==> Result = 4
-Case 7: 	max = 4 ===> A.length = 5  	==> Result = 4
-Case 7: 	max = 4 ===> A.length = 5  	==> Result = 4
+Reference:
+	- https://app.codility.com/programmers/trainings/7/arr_list_len/
 
 
+Case 1: 	[1, 4, -1, 3, 2]
+
+
+Suy luan logic nhu sau:
+
+A[0] = 1 => count = 1
+A[1] = 4 => count = 2
+A[4] = 2 => count = 3
+A[2] = -1 redirect to A[4] => count = 4
 */
+package main
+
+func Solution(A []int) int {
+	var next, count int = 0
+	while
+}
+func main()
