@@ -139,12 +139,95 @@ namespace Inheritance {
 
     }
 
+    /*****************************************************************************************
+    ***************************** Strategy Design Pattern  ***********************************
+    ******************************************************************************************/ 
+    /************************** Interface and Concrete *******************************/
+    /*** Fly Behavior ***/
+    public interface FlyBehavior {
+        void fly();
+    }
+
+    class FlyNoWay : FlyBehavior {
+        public void fly() {
+            Console.WriteLine($"I can't fly");
+        }
+    }
+
+    class FlyWithWings : FlyBehavior {
+        public void fly() {
+            Console.WriteLine("I'm flying!!");
+        }
+    }
+
+    /*** Quack Behavior ***/
+    public interface QuackBehavior {
+        void quack();
+    }
+
+    class Quack : QuackBehavior {
+        public void quack() {
+            Console.WriteLine($"Quack");
+        }
+    }
+
+    /************************** Inheritance Duck: Parent class *******************************/
+    public abstract class Duck : Animals {
+        protected FlyBehavior flyBehavior;
+	    protected QuackBehavior quackBehavior;
+
+        public Duck() {
+        }
+
+        public void setFlyBehavior(FlyBehavior fb) {
+            flyBehavior = fb;
+        }
+
+        public void setQuackBehavior(QuackBehavior qb) {
+            quackBehavior = qb;
+        }
+
+        public abstract void display();
+
+        public void performFly() {
+            flyBehavior.fly();
+        }
+
+        public void performQuack() {
+            quackBehavior.quack();
+        }
+
+        public void swim() {
+            Console.WriteLine($"All ducks float, even decoys!");
+        }
+
+    }
+
+    /************************** Inheritance Duck: Child class *******************************/
+    public class MallardDuck : Duck {
+
+        public MallardDuck() {
+
+            base.quackBehavior = new Quack();
+            base.flyBehavior = new FlyWithWings();
+
+        }
+
+        public override void display() {
+            Console.WriteLine($"I'm a real Mallard duck");
+        }
+    }
+
+
     /******************************************************************************
     ********************************** Program ************************************
     ******************************************************************************/
     class Program {
         static void Main (string[] args) {
-            /* Example 1: Inheritance */    
+
+            Console.WriteLine($"*********** Example 1: Inheritance ***********");
+            /* Example 1: Inheritance */  
+              
             Cat cat = new Cat();
             cat.ShowInfo(); // Phương thức này kế thừa từ lớp cơ sở
             cat.ShowLegs();
@@ -154,11 +237,20 @@ namespace Inheritance {
             cat.ShowInfo("sleep");
 
 
+            Console.WriteLine($"*********** Example 2: Override method ***********");
             /* Example 2: Override method */    
             Bird bird = new Bird();
             bird.MakeNoise();
 
+            Console.WriteLine($"*********** Example 3: Abstract method ***********");
             /* Example 3: Abstract method */
+
+            Console.WriteLine($"*********** Example 4: Stategy Design Pattern ***********");
+            /* Example 4: Stategy Design Pattern */
+            MallardDuck	mallard = new MallardDuck();
+            mallard.display();
+            mallard.performFly();
+            mallard.performQuack();
         }       
 
     }
