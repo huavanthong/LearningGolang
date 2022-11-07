@@ -271,7 +271,7 @@ func (singlyLinkedList *SinglyLinkedList) deleteNodeAtMiddle(position int32) {
 
 }
 
-// Example 10: Complete the reversePrint function below.
+// Example 10: Complete the reversePrintByRecursive function below.
 func reversePrintByRecursive(llist *SinglyLinkedListNode) {
 
 	if llist == nil {
@@ -282,12 +282,34 @@ func reversePrintByRecursive(llist *SinglyLinkedListNode) {
 	}
 }
 
+// Example 11: Complete the reversePrintByStack function below.
 func reversePrintByStack(llist *SinglyLinkedListNode) {
-	curr := llist
-	stack := int[]
-	
-}
 
+	curr := llist
+	// Initialize a resizable array
+	stack := []int32{}
+	if llist == nil {
+		return
+	} else {
+		// Insert data to stack
+		for curr != nil {
+			stack = append(stack, curr.data)
+			curr = curr.next
+		}
+
+		// Reorder number to print value
+		for i, j := 0, len(stack)-1; i < j; i, j = i+1, j-1 {
+			stack[i], stack[j] = stack[j], stack[i]
+		}
+
+	}
+
+	// Display reverse data in Linked List
+	for i := range stack {
+		fmt.Printf("%d\n", stack[i])
+	}
+
+}
 
 func main() {
 	reader := bufio.NewReaderSize(os.Stdin, 1024*1024)
