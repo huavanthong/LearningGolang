@@ -3,7 +3,13 @@
 	* Example 2: Insert at head. Refer: [here](https://www.hackerrank.com/challenges/insert-a-node-at-the-head-of-a-linked-list/problem)
 	* Example 3: Insert at tail. Refer: [here](https://www.hackerrank.com/challenges/insert-a-node-at-the-tail-of-a-linked-list/problem)
 	* Example 4: Insert at position. Refer: [here](https://www.hackerrank.com/challenges/insert-a-node-at-a-specific-position-in-a-linked-list/problem)
-	* Example 5:
+	* Example 5: Delete node at head. Refer: [here]()
+	* Example 6: Delete node at tail.
+	* Example 7: Delete node at middle.
+	* Example 8: Delete node at position.
+	* Example 9: Delete node where data = input key.
+	* Example 10: Reverse a Singly Linked List by recursive expression
+	* Example 11: Reverse a Singly Linked List by dynamic array
 
 Sample Input:
 2
@@ -81,9 +87,20 @@ func (singlyLinkedList *SinglyLinkedList) insertNodeIntoSinglyLinkedList(nodeDat
  */
 func printLinkedList(head *SinglyLinkedListNode) {
 	for head != nil {
-		fmt.Println(head.data)
+		fmt.Printf("%d -> ", head.data)
 		head = head.next
 	}
+	fmt.Println()
+}
+
+func (singlyLinkedList *SinglyLinkedList) printLength() {
+	var length int32 = 0
+	head := singlyLinkedList.head
+	for head != nil {
+		length++
+		head = head.next
+	}
+	fmt.Println("Length of Singly Linked List: ", length)
 }
 
 // Complete the insertNodeAtTail function below.
@@ -209,6 +226,69 @@ func insertNodeAtPosition(llist *SinglyLinkedListNode, data int32, position int3
 	return llist
 }
 
+// Example 5: Complete the deleteNodeAtHead function below.
+func (singlyLinkedList *SinglyLinkedList) deleteNodeAtHead() {
+
+	// temp := singlyLinkedList.head
+
+	singlyLinkedList.head = singlyLinkedList.head.next
+
+	// Step 3: We can free memory allocation for temp by assiging nil
+	//temp = nil
+}
+
+// Example 6: Complete the deleteNodeAtEnd function below.
+func (singlyLinkedList *SinglyLinkedList) deleteNodeAtEnd() {
+
+}
+
+// Example 7: Complete the deleteNodeAtMiddle function below.
+func (singlyLinkedList *SinglyLinkedList) deleteNodeAtMiddle(position int32) {
+	// Demo input singly linked list
+	/*	Head									  Tail
+		---------------		---------------		---------------
+		| 16 | Next |	->	| 13 | Next |	-> 	| 7 | Next | -> nil
+		---------------		---------------		---------------
+			NODE1				NODE2				NODE3
+	*/
+	temp := singlyLinkedList.head
+	prev := singlyLinkedList.head
+	for i := int32(0); i < position; i++ {
+		if i == 0 && position == 1 {
+			singlyLinkedList.head = singlyLinkedList.head.next
+		} else {
+			if i == position-1 && temp != nil {
+				prev.next = temp.next
+			} else {
+				prev = temp
+				if prev == nil { // position was greater than number of nodes in the list
+					break
+				}
+				temp = temp.next
+			}
+		}
+	}
+
+}
+
+// Example 10: Complete the reversePrint function below.
+func reversePrintByRecursive(llist *SinglyLinkedListNode) {
+
+	if llist == nil {
+		return
+	} else {
+		reversePrintByRecursive(llist.next)
+		fmt.Printf("%d\n", llist.data)
+	}
+}
+
+func reversePrintByStack(llist *SinglyLinkedListNode) {
+	curr := llist
+	stack := int[]
+	
+}
+
+
 func main() {
 	reader := bufio.NewReaderSize(os.Stdin, 1024*1024)
 
@@ -227,19 +307,32 @@ func main() {
 	fmt.Println("Example 1: Print all data in Single List")
 	printLinkedList(llist.head)
 
-	fmt.Println("Example 2: Insert at head")
+	fmt.Println("Example 2: Insert at head 2 node with data = 1 and data = 2")
 	llist.insertNodeAtHead(1)
 	llist.insertNodeAtHead(2)
 	printLinkedList(llist.head)
 
-	fmt.Println("Example 3: Insert at tail")
+	fmt.Println("Example 3: Insert at tail 2 node with data = 19  and data = 20")
 	llist.insertNodeAtTail(19)
 	llist.insertNodeAtTail(20)
 	printLinkedList(llist.head)
 
-	fmt.Println("Example 4: Insert at position")
+	fmt.Println("Example 4: Insert at position 2 by a new node with data = 5")
 	llist_after := insertNodeAtPosition(llist.head, 5, 2)
 	printLinkedList(llist_after)
+
+	fmt.Println("Example 4: Delete node at head")
+	llist.deleteNodeAtHead()
+	llist.printLength()
+	printLinkedList(llist.head)
+
+	fmt.Println("Example 6: Delete node at position")
+	llist.deleteNodeAtMiddle(4)
+	llist.printLength()
+	printLinkedList(llist.head)
+
+	fmt.Println("Example 10: Reverse a Singly Linked List")
+	reversePrintByRecursive(llist.head)
 
 }
 
