@@ -8,8 +8,8 @@
 	* Example 7: Delete node at middle.
 	* Example 8: Delete node at position.
 	* Example 9: Delete node where data = input key.
-	* Example 10: Reverse a Singly Linked List by recursive expression
-	* Example 11: Reverse a Singly Linked List by dynamic array
+	* Example 10: Print reverse value a Singly Linked List by recursive expression
+	* Example 11: Print reverse value a Singly Linked List by dynamic array
 
 Sample Input:
 2
@@ -353,9 +353,11 @@ func main() {
 	llist.printLength()
 	printLinkedList(llist.head)
 
-	fmt.Println("Example 10: Reverse a Singly Linked List")
+	fmt.Println("Example 10: Print reverse value a Singly Linked List by recursive expression")
 	reversePrintByRecursive(llist.head)
 
+	fmt.Println("Example 11: Print reverse value a Singly Linked List by dynamic array")
+	reversePrintByStack(llist.head)
 }
 
 func readLine(reader *bufio.Reader) string {
