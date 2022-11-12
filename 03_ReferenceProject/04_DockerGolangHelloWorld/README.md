@@ -3,8 +3,8 @@ This is the example repository for [this blog post](https://tutorialedge.net/gol
 * To get help from terminal [here](#docker-help)
 * To build image .[here](#build-image)
 * To run image. [here](#run-image)
+* To run our application. [here](#run-application)
 * To login your docker. [here](#please-login-your-docker)
-* To test image. [here](#test-image)
 * To execute command on the contaner. [here](#execute-image)
 * To install bash for a image. [here](#install-bash)
 * To check all images on docker. [here](#check-image)
@@ -45,22 +45,22 @@ docker run -p 8080:8081 -it my-go-app
 docker: Error response from daemon: pull access denied for my-go-ap, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.   
 See 'docker run --help'.
 ```
-### Please login your docker
+- Please login your docker
 ```
 > docker login
 Authenticating with existing credentials...
 Login Succeede
 ```
-### Test image
-To check the result:
+### Run application
+After run image on docker, right now, you can access to application following step below
 ```
 Open brower:  
   http://localhost:8080/
 or
 Command line: 
 $curl http://localhost:8080/
-
 ```
+![image](https://user-images.githubusercontent.com/50081052/201463201-f7e8bb32-d195-4611-8bff-38f008a52dfb.png)
 ### Execute image
 To execute an interactive bash shell on the container.
 ```
