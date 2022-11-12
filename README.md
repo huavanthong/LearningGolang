@@ -55,11 +55,6 @@ More detail: [here](https://github.com/huavanthong/MasterGolang/tree/main/03_Ref
     - Implement application NodeJS vs Golang.
     - Compose all apps to Docker compose.
 More detail: [here](https://github.com/huavanthong/MasterGolang/tree/main/03_ReferenceProject/07_Docker-compose-Go-Nodejs)
-### 08_bulletinApi. 
-    - Implement Go server following microservice architecture.
-    - Implement Kubernets to scale out application.
-    - Use Docker compose to combine app and PostgreSQL Database together.
-More detail: [here](https://github.com/huavanthong/MasterGolang/tree/main/03_ReferenceProject/08_bulletinApi)
 ## project
 Begin to deploy the actual golang project. This project will implement Golang following MVC model. 
 We will find the interesting feature, and integrate into this project.
