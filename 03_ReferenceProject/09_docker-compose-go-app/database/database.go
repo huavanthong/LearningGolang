@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/huavanthong/MasterGolang/tree/main/03_ReferenceProject/09_docker-compose-go-app/book"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
@@ -35,7 +36,9 @@ func InitDatabase() error {
 	}
 	fmt.Println("Database connection successfully opened")
 
-	database.DBConn.AutoMigrate(&book.Book{})
+	DBConn.AutoMigrate(&book.Book{})
 	fmt.Println("Database Migrated")
 
+	// For debugger
+	// DBConn.Debug().AutoMigrate(&Account{}, &Contact{}) //Database migration
 }

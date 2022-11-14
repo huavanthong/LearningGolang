@@ -1,8 +1,8 @@
 package book
 
 import (
-	"github.com/elliotforbes/go-fiber-tutorial/database"
 	"github.com/gofiber/fiber"
+	"github.com/huavanthong/MasterGolang/tree/main/03_ReferenceProject/09_docker-compose-go-app/database"
 	"github.com/jinzhu/gorm"
 )
 
