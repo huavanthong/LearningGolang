@@ -1,4 +1,4 @@
-module github.com/elliotforbes/go-fiber-tutorial
+module github.com/huavanthong/MasterGolang/go-book-app
 
 go 1.13
 
