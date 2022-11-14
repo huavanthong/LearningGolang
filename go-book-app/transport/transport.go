@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber"
 
-	"github.com/huavanthong/MasterGolang/tree/main/03_ReferenceProject/09_docker-compose-go-app/book"
+	"github.com/huavanthong/MasterGolang/go-book-app/book"
 )
 
 func helloWorld(c *fiber.Ctx) {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/huavanthong/MasterGolang/tree/main/03_ReferenceProject/09_docker-compose-go-app/book"
+	"github.com/huavanthong/MasterGolang/go-book-app/book"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
