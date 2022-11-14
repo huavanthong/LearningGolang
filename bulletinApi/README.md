@@ -11,3 +11,13 @@ Disclaimer: this package is created for educational purposes only
     - Implement Go server following microservice architecture.
     - Implement Kubernets to scale out application.
     - Use Docker compose to combine app and PostgreSQL Database together.
+
+### Getting Started
+Firstly, you need to start docker compose
+```
+docker-compose up
+```
+
+```bash
+$ docker-compose up --force-recreate --build -d
+```
