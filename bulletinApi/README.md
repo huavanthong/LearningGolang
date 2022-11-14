@@ -18,6 +18,18 @@ Firstly, you need to start docker compose
 docker-compose up
 ```
 
+If you want to recreate image on docker, please this command. More details: [here](https://stackoverflow.com/questions/49316462/how-to-update-existing-images-with-docker-compose)
 ```bash
 $ docker-compose up --force-recreate --build -d
 ```
+
+To build application on local machine.
+```
+go build
+```
+
+To sync vendor
+```
+go mod vendor
+```
+

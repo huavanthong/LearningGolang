@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/huavanthong/MasterGolang/go-book-app/book"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
@@ -36,9 +35,10 @@ func InitDatabase() error {
 	}
 	fmt.Println("Database connection successfully opened")
 
-	DBConn.AutoMigrate(&book.Book{})
+	// DBConn.AutoMigrate(&book.Book{})
 	fmt.Println("Database Migrated")
 
 	// For debugger
 	// DBConn.Debug().AutoMigrate(&Account{}, &Contact{}) //Database migration
+	return err
 }
