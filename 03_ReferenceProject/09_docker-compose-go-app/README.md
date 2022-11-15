@@ -18,9 +18,22 @@ $ docker compose run --rm app air init
 .air.toml file created to the current directory with the default settings
 ```
 
-Step 3: Trying it all out
+Step 3: Docker compose up to start all services
 ```
 docker compose up
+```
+
+Step 4: Run our application
+Open brower, and enter:
+```
+http://localhost:3000/
+
+Hello World
+```
+Or run curl command:
+```
+curl -F "name=my-item" http://localhost:3000/items
+curl -i -X POST -H "Content-Type: application/json" -d '{"name":"my-item"}' http://localhost:3000/items
 ```
 ### Usage knowledge
 Item 1: If you want to run your application by docker command
@@ -67,6 +80,16 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 CREATE TABLE items(
   id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+  name character varying NOT NULL
+)
+```
+Error at Item 3: ERROR:  function public.gen_random_uuid() does not exist. More details: [here](https://stackoverflow.com/questions/35959265/postgresql-function-gen-random-uuid-not-working).  
+To fix this error
+```sql
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
+
+CREATE TABLE items(
+  id uuid DEFAULT gen_random_uuid() NOT NULL,
   name character varying NOT NULL
 )
 ```
