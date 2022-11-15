@@ -7,11 +7,14 @@ This is the example repository for [this blog post](https://tutorialedge.net/gol
 * To login your docker. [here](#please-login-your-docker)
 * To execute command on the contaner. [here](#execute-image)
 * To install bash for a image. [here](#install-bash)
+* What is a container image? [here](#image)
 * To check all images on docker. [here](#check-image)
+* What is a container? [here](#container)
 * To check all containers on docker. [here](#check-container)
 * To check all volumne on docker. [here](#check-volumne)
-* To remove a images on docker. [here](#remove-images)
 * To remove a container on image. [here](#remove-container)
+* To kill a container. [here](#kill-container)
+* To remove a images on docker. [here](#remove-images)
 * Summary issue knowledege. [here](#issue-knowledge)
 
 ## Setup  
@@ -83,29 +86,43 @@ More details: [here](https://docs.docker.com/engine/reference/commandline/exec/)
 ## install bash for our container
 RUN apk update && apk add bash
 ```
+### Image
+* To understand what is a container image in more details? Refer: [here](https://docs.docker.com/get-started/#what-is-a-container-image)
+* In a simple word:
+```
+When running a container, it uses an isolated filesystem. 
+This custom filesystem is provided by a container image. Since the image contains the container’s filesystem, it must contain everything needed to run an application - all dependencies, configurations, scripts, binaries, etc. 
+```
 ### Check image
 To verify that our image exists on our machine 
 ```
-docker images my-go-app
+$ docker images my-go-app
 ```
 
 To check list of the existence images on docker.
 ```
-$docker images 
-$docker images -a
+$ docker images 
+$ docker images -a
+```
+
+### Container
+* To understand what is a container in more details? Refer: [here](https://docs.docker.com/get-started/)
+* In a simple word:
+```
+a container is a sandboxed process on your machine that is isolated from all other processes on the host machine. 
 ```
 
 ### Check container  
 To check all of containers in images.
 ```
-$docker container ls
+$ docker container ls
 CONTAINER ID   IMAGE                                 COMMAND                  CREATED          STATUS          PORTS                NAMES
 95700e0f6884   my-go-app:latest                      "/app/main"              26 minutes ago   Up 26 minutes                        nervous_colden
 ```
 
 To check all container running on all images
 ```
-$docker ps -a
+$ docker ps -a
 D:\Working\02_Learning\03_ReferenceProject\MasterGolang\03_ReferenceProject\07_Docker-compose-Go-Nodejs>docker ps -a
 CONTAINER ID   IMAGE                                 COMMAND                  CREATED          STATUS                      PORTS                NAMES
 dcacb7a35b8f   af1205224676                          "/bin/sh -c ./main"      17 minutes ago   Exited (2) 11 minutes ago                        07_docker-compose-go-nodejs_webreactjs_1
@@ -119,48 +136,73 @@ a5a6baaea1db   alpine/git                            "git clone https://g…"   
 ### Check volumne
 To check all volumne in docker
 ```
-$docker volume ls
+$ docker volume ls
 D:\Working\02_Learning\03_ReferenceProject\MasterGolang\03_ReferenceProject\07_Docker-compose-Go-Nodejs>docker volume ls
 DRIVER    VOLUME NAME
 local     5767f1bc77df3f031bc1c73d2885fe402e567963bf2112b4b5c695f31c9f3f65
 local     volume-single-dev-env-affectionate_hoover
 local     vsCodeServerVolume-single-dev-env-affectionate_hoover
 ```
+
 To remove volumne on docker  
 ```
-$docker volume rm volume_name volume_name
+$ docker volume rm volume_name volume_name
 ```
   
 ### Remove container
+To list all container running on images
+```bash
+$ docker ps -a
+```
+
 To stop container on images
+```bash
+$ docker stop 95700e0f6884
 ```
-$docker stop 95700e0f6884
-```
+
 To remove container in images
+```bash
+$ docker rm 95700e0f6884
 ```
-$docker rm 95700e0f6884
+
+To stop force container on images
+```bash
+# Typically, docker rm is used to remove an already stopped container, but the use of the -f flag will cause it to first issue a SIGKILL.
+$ docker rm -f 95700e0f6884
 ```
 #### Stop and remove all containers.
 To stop all containers
 ```bash
-docker container stop $(docker container ls -aq)
+$ docker container stop $(docker container ls -aq)
 ```
 
 To remove all containers
 ```bash
-docker container rm $(docker container ls -aq)
+$ docker container rm $(docker container ls -aq)
 ```
 More details: [here](https://linuxize.com/post/how-to-remove-docker-images-containers-volumes-and-networks/)
+### Kill container
+To kill container running on images. More details: [here](https://www.upwork.com/resources/how-to-stop-a-docker-container)
+```bash
+# By default, the docker kill command doesn't give the container process an opportunity to exit gracefully
+$ docker kill my_container
+
+# For example, if you wanted to send a SIGINT (the equivalent of a Ctrl-C on the terminal) to the container "foo" you could use the following:
+$ docker kill ----signal=SIGINT foo
+```
+Unlike the docker stop command, kill doesn't have any sort of timeout period. It issues just a single signal (either the default SIGKILL or whatever you specify with the --signal flag).
 ### Remove images
 To remove image on docker
 ```
-$docker rmi my-go-app
-=> If it happened error: "conflict: unable to remove repository reference"
-$docker rmi -f my-go-app
+$ docker rmi my-go-app
+
+### If it happened error: "conflict: unable to remove repository reference"
+$ docker rmi -f my-go-app
 ```
+
 To remove all images  
 ```
-$docker rmi $(docker images -a -q)
+$ docker rmi $(docker images -a -q)
 ```
 ## Issue knowledge
 ## 1. Issue related to build docker on Window
