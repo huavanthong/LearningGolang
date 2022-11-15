@@ -1,10 +1,10 @@
 FROM node:latest AS node_builder
 
-RUN mkdir -p /app/webreactjs
+RUN mkdir /app
 
-WORKDIR /app/webreactjs
+WORKDIR /app
 
-COPY /app/package.json .
+COPY ["package.json", "package-lock.json*", "./"]
 
 # Install npm 
 RUN npm install

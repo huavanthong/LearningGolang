@@ -1,4 +1,5 @@
 FROM golang:1.17 AS go_builder
+
 ADD . /app
 WORKDIR /app
 RUN go mod download
