@@ -12,13 +12,17 @@ Please make sure you install all the necessary software below:
 * Golang compiler
 
 ## How to build this project
-### Step 1:
+### Step 1: Initialize environment for NodeJS
 Set up your web application:
 ```
-$nmp init react-app app
+$ nmp init react-app app
 ```
-### Step 2:
+### Step 2: Use docker compose to start all service
 Build this project by .yml docker-compose.
 ```
-$docker-compose up
+$ docker-compose up
+```
+### Step 3: Run our application.
+```
+
 ```
