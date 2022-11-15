@@ -1,4 +1,6 @@
-This is the example reference project for learning Docker-compose with Golang [Refer blog post](https://viblo.asia/p/docker-compose-la-gi-kien-thuc-co-ban-ve-docker-compose-1VgZv8d75Aw)
+# Reference
+    - This is the example reference project for learning Docker-compose with Golang [Refer blog post](https://viblo.asia/p/docker-compose-la-gi-kien-thuc-co-ban-ve-docker-compose-1VgZv8d75Aw)
+    - Docker compose for react js tutorial. Refer: [here](https://michalzalecki.com/docker-compose-node/)
 ## Overview
 It include: 
 * Server is implemented by Golang
@@ -15,7 +17,7 @@ Please make sure you install all the necessary software below:
 ### Step 1: Initialize environment for NodeJS
 Set up your web application:
 ```
-$ nmp init react-app app
+$ npm init react-app app
 ```
 ### Step 2: Use docker compose to start all service
 Build this project by .yml docker-compose.

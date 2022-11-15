@@ -2,16 +2,24 @@ version: '2.1'
 
 services:
   webreactjs:
-    image: myweb
+    image: webreactjs
     container_name: "webreactjs"
-    build: .
+    build: 
+      context: ./client
+      target: node_builder
     ports:
       - 3000:3000
     restart: always
+    volumes:
+      - ./client:/app/webreactjs
   servergo:
     image: myserver
     container_name: "servergo"
-    build: .
+    build: 
+      context: ./server
+      target: go_builder
     ports:
       - 8080:8080
     restart: always
+    volumes:
+      - ./server:/app/
