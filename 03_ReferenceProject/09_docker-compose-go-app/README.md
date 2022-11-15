@@ -35,9 +35,19 @@ Or run curl command:
 curl -F "name=my-item" http://localhost:3000/items
 curl -i -X POST -H "Content-Type: application/json" -d '{"name":"my-item"}' http://localhost:3000/items
 ```
+### Set up GO application project with AIR
+Init our Go module from within the container, run the follow command 
+```bash
+$ docker compose run --rm app go mod init github.com/huavanthong/MasterGolang/03_ReferenceProject/09_docker-compose-go-app
+```
+
+Should run our Air init from inside of our app container.
+```bash
+$ docker compose run --rm app air init
+```
 ### Usage knowledge
 Item 1: If you want to run your application by docker command
-```
+```bash
 $ docker compose run --rm app go mod tidy
 ```
 
