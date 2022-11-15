@@ -13,7 +13,7 @@ services:
     volumes:
       - ./client:/app/webreactjs
   servergo:
-    image: myserver
+    image: servergo
     container_name: "servergo"
     build: 
       context: ./server
