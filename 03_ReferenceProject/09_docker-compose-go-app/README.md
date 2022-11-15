@@ -31,7 +31,7 @@ http://localhost:3000/
 Hello World
 ```
 Or run curl command:
-```
+```bash
 curl -F "name=my-item" http://localhost:3000/items
 curl -i -X POST -H "Content-Type: application/json" -d '{"name":"my-item"}' http://localhost:3000/items
 ```
