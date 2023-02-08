@@ -17,16 +17,19 @@ func main() {
 
 	// Send data to the server
 	request := "Hello, World!\n"
-	fmt.Print("Sending: ", request)
-	fmt.Fprintf(conn, request)
+	var response string
 
-	// Read the response from the server
-	response, err := bufio.NewReader(conn).ReadString('\n')
-	if err != nil {
-		fmt.Println("Error reading:", err.Error())
-		return
+	for i := 0; i < 10; i++ {
+		fmt.Print("Sending: ", request)
+		fmt.Fprintf(conn, request)
+
+		// Read the response from the server
+		response, err = bufio.NewReader(conn).ReadString('\n')
+		if err != nil {
+			fmt.Println("Error reading:", err.Error())
+			return
+		}
 	}
-
 	// Print the received response
 	fmt.Print("Received: ", response)
 }

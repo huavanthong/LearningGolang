@@ -46,7 +46,7 @@ func main() {
 
 	// Condition loop 2: Create a contion loop using for
 	fmt.Println("===== Condition loop 2: make a simple condition loop: <for i <= 20> =====")
-	i = 2
+	i := 2
 	for i <= 20 {
 		fmt.Printf("%d\n", i)
 		i *= 2
