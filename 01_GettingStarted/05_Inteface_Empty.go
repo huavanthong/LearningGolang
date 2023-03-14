@@ -19,7 +19,7 @@ type Description struct {
 desribe() function have an argunment as a empty interface
 *****************************************************************************
 */
-func describe(i interface{}) {
+func describe(i ...interface{}) {
 	fmt.Printf("(%v, %T)\n", i, i)
 }
 
@@ -47,4 +47,7 @@ func main() {
 		DescriptionDetail: "Try to test Interface with struct data-type",
 	}
 	describe(d)
+
+	// Method 3: Update function to insert multiple arg
+	describe(d, i)
 }
