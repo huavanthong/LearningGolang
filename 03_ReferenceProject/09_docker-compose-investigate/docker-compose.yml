@@ -1,0 +1,7 @@
+services:
+  test:
+    image: alpine:latest
+    container_name: hostname-tester
+    hostname: alpine-${HOST}
+    command:
+      - hostname
