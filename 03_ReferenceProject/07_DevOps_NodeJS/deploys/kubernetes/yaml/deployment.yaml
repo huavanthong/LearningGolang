@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-devops
+  template:
+    metadata:
+      labels:
+        app: nodejs-devops
+    spec:
+      containers:
+        - name: nodejs-devops
+          image: akinbicer/devops-nodejs-example:latest
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: nodejs-devops-data
+              mountPath: /app
+      volumes:
+        - name: nodejs-devops-data
+          persistentVolumeClaim:
+            claimName: nodejs-devops-pvc

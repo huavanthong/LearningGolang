@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  nodejs-devops:
+    image: akinbicer/devops-nodejs-example:latest
+    container_name: nodejs.devops.local
+    hostname: nodejs.devops.local
+    restart: always
+    volumes:
+      - "nodejs-devops-data:/app"
+    ports:
+      - "3000:3000"
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+
+volumes:
+  nodejs-devops-data:

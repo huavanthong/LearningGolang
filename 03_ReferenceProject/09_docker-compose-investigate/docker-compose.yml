@@ -1,7 +1,20 @@
+version: '3.8'
+
 services:
-  test:
-    image: alpine:latest
-    container_name: hostname-tester
-    hostname: alpine-${HOST}
-    command:
-      - hostname
+  app:
+    build:
+      context: ./cloned-repo
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./cloned-repo:/app
+
+  # Sử dụng một dịch vụ helper để clone repository
+  helper:
+    image: alpine/git
+    volumes:
+      - ./cloned-repo:/app
+    entrypoint: ["/bin/sh", "-c"]
+    command: |
+      "git clone https://github.com/docker/docker-nodejs-sample /app && chown -R $(id -u):$(id -g) /app"
+    working_dir: /app
