@@ -5,6 +5,9 @@
 # https://docs.docker.com/go/dockerfile-reference/
 
 # Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
+ARG HTTP_PROXY=http://rb-proxy-apac.bosch.com:8080
+ARG HTTPS_PROXY=http://rb-proxy-apac.bosch.com:8080
+ARG NO_PROXY=localhost, 127.0.0.*, 10.*, 192.168.*, *.bosch.com
 
 ARG NODE_VERSION=20.13.0
 
